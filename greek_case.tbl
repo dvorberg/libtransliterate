@@ -1,0 +1,81 @@
+// These codes follow the TLG Beta Code Quick Reference Guide
+// July 16, 2009. Upper case Greek characters are represented by
+// upper case beta codes and lower case codes map to lower case
+// letters.
+//
+// o Syntax: Everything after // is ignored.
+// o Empty lines are ignored
+// o Everything else must be <code> <code point>
+//
+// Code points are hexadecimals.
+//
+
+A 0391
+a 03B1
+B 0392
+b 03B2
+C 039E
+c 03BE
+D 0394
+d 03B4
+E 0395
+e 03B5
+F 03A6
+f 03C6
+G 0393
+g 03B3
+H 0397
+h 03B7
+I 0399
+i 03B9
+K 039A
+k 03BA
+L 039B
+l 03BB
+M 039C
+m 03BC
+N 039D
+n 03BD
+O 039F
+o 03BF
+P 03A0
+p 03C0
+Q 0398
+q 03B8
+R 03A1
+r 03C1
+S 03A3
+//s 03C2 // Greek Small Letter Final Sigma
+s  03C3   // Greek Small Letter Medial Sigma
+s1 03C3 // Greek Small Letter Medial Sigma
+s2 03C2 // Greek Small Letter Final Sigma
+S3 03F9 // Greek Capital Lunate Sigma Symbol
+s3 03F2 // Greek Lunate Sigma Symbol
+T 03A4
+t 03C4
+U 03A5
+u 03C5
+V 03DC
+v 03DD
+W 03A9
+w 03C9
+X 03A7
+x 03C7
+Y 03A8
+y 03C8
+Z 0396
+z 03B6
+) 0313
+( 0314
+/ 0301
+= 0342
+\ 0300
++ 0308
+| 0345
+? 0323
+. 002E
+, 002C
+: 00B7 // Middle Dot
+; 003B // Greek Question mark
+' 2019 // Right Single Quotation Mark
+- 2010 // EM Dash

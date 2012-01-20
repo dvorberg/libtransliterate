@@ -1,0 +1,73 @@
+’  05D0 // א  Aleph
+b  05D1 // ב  Beth
+g  05D2 // ג  Gimmel
+d  05D3 // ד  Daleth
+h  05D4 // ה  He
+w  05D5 // ו  Waw
+z  05D6 // ז  Zajin
+.h 05D7 // ח  Chet
+.t 05D8 // ט  Tet
+y  05D9 // י  Jod
+
+k  05DB // כ  Kaph
+K| 05DB // כ  Kaph
+
+K  05DA //    End-Kaph
+k! 05DA //    End-Kaph
+
+l  05DC // ל  Lamech
+
+m  05DE // מ  Mem
+M|  05DE // מ  Mem
+M  05DD //    End-Mem
+m! 05DD //    End-Mem
+m\endofword 05DD //    End-Mem
+
+n  05E0 // נ  Nun
+N|  05E0 // נ  Nun
+N  05DF //    End-nun
+n! 05DF //    End-nun
+n\endofword 05DF //    End-nun
+
+s  05E1 // ס  Samech
+‘  05E2 // ע  Ajin
+
+p  05E4 // פ  Pe
+P|  05E4 // פ  Pe
+P  05E3 //    End-Pe
+p!  05E3 //    End-Pe
+p\endofword  05E3 //    End-Pe
+
+.s 05E6 // צ  Tzade
+.S| 05E6 // צ  Tzade
+.S 05E5 //    End-Tzade
+.s! 05E5 //    End-Tzade
+.s\endofword 05E5 //    End-Tzade
+
+q  05E7 // ק  Qoph
+r  05E8 // ר  Resch
+/s 05E9 // ש  Sin/Schin
+,s FB2B // 05E9 05C2 // ׂש Sin   05C2 HEBREW POINT SIN DOT
++s FB2A // 05E9 05C1 // שׁ Schin 05C1 HEBREW POINT SHIN DOT
+t  05EA // ת  Taw
+
+-- 05BE // Maqaf
+
+I  05B4 // Chiriq
+e  05B5 // Sere
+E  05B6 // Seggol
+E: 05B1 // Chataph-Seggol
+a  05B7 // Patach
+/a 05B7 // Patach ein bisschen zur Seite
+a: 05B2 // Chataph-Patach
+A  05B8 // Qamäz
+A: 05B3 // Chataph-Qamäz
+o  05B9 // Choläm
+u  05BB // Qubbuz
+*  05BC // Dagesh
+:  05B0 // Schwa
+O  FB4B // 05D5 05BA // Choläm-Magnum 
+wo FB4B // 05D5 05BA // Choläm-Magnum 
+U  FB35 // 05D5 05BC // Schuruq
+w* FB35 // 05D5 05BC // Schuruq
+;  05C3 // ׃ Sof Pasuq

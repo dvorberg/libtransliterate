@@ -1,0 +1,116 @@
+< 0305  // Combining Overline
+<1 0332 // Combining Underline
+<2 2035 // Left Interlinear Text Marker Bracket
+>2 2032 // Right Interlinear Text Marker Bracket
+<3 0361 // Combining Double Inverted Breve
+
+ " 201C // Left Double Quotation Mark
+// 201D // Right Double Quotation Mark
+"1 201E // Left Low Double Quotation Mark („Gänsefüßchen“)
+"2 201C // Right High Double Quotation Mark
+
+[ 005B  
+] 005D
+[1 0028
+]1 0029
+[2 2329
+]2 232A
+[3 007B
+]3 007D
+[4 27E6
+]4 27E7
+[5 2E24
+]5 2E25
+[6 2E22
+]6 2E23
+[7 2E22
+]7 2E25
+[8 2E24
+]8 2E23
+[9 2027
+]9 2027
+
+  % 2020 // † Dagger 
+ %1 003F // ? Question Mark
+ %2 002A // * Asterisk
+ %3 002F // / Solidus ("Slash")
+ %4 0021 // ! Exclamation Mark
+ %5 007C // | Long Vertical Bar
+ %6 003D // = Equals Sign
+ %7 002B // + Plus Sign
+ %8 0025 // % Percent Sign
+ %9 0026 // & Ampersand
+%10 003A // : Colon
+%11 2022 // • Black Small Circle
+%12 002A // *
+%13 2021 // ‡
+%14 00A7 // §
+%15 02C8 // '
+%16 00A6 // ¦
+%17 2016 // ‖
+%18 0027 // '
+%19 2013 // EN Dash
+%20 0301 // ◌́ Combining Acute Accent
+%21 0300 // ◌̀ Combining Grave Accent
+%22 0302 // ◌̂ Combining Circumflex Accent
+%23 0308 // ◌̈ Combining Umlaut
+%24 0342 //
+%25 0325
+%26 0304 // ◌̄ CombiningMacron
+%27 0306 // ◌̆ CombiningBreve
+%28 0308
+%29 0323 // ◌
+%30 02BC // ̓
+%31 02BD // ̔
+%32 00B4 // ´
+%33 0060 // `
+%34 1FC0 // ͂
+%35 1FCE // ῎
+%36 1FDE // ῞
+%37 1FDD // ῝
+%38 1FDF // ῟
+%39 00A8 // ̈
+%40 23D1 // ⏑
+%41 2013 // –
+%42 23D5 // ⏕
+%43 00D7 // ×
+%44 23D2 // ⏒
+%45 23D3 // ⏓
+%46 23D4 // ⏔
+
+%91 0485 // ◌҅
+%92 0486 // ◌҆
+%93 1DC0 // ◌᷀
+%94 0307 // ◌̇
+%95 1DC1 // ◌᷁
+%96 035C // ◌͜
+%97 0307 // ◌̇
+
+%100 003B
+%101 0023
+%102 2018
+%103 005C
+%104 005E
+%106 224C
+%107 007E
+%108 00B1
+%109 00B7
+%110 25CB
+%127 032F
+%128 030C
+%129 2020
+%130 0307
+%132 0385
+%133 1FCD
+%134 1FCF
+%138 23D1
+
+%141 23D6
+%142 2510
+%144 23D1
+%145 2013
+%146 00B7
+%147 030A
+%148 030C
+%149 0328
+%150 007C

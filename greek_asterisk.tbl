@@ -1,0 +1,78 @@
+// These codes follow the TLG Beta Code Quick Reference Guide
+// July 16, 2009
+//
+// o Syntax: Everything after // is ignored.
+// o Empty lines are ignored
+// o Everything else must be <code> <code point>
+//
+// Code points are hexadecimals.
+
+*A 0391
+A 03B1
+*B 0392
+B 03B2
+*C 039E
+C 03BE
+*D 0394
+D 03B4
+*E 0395
+E 03B5
+*F 03A6
+F 03C6
+*G 0393
+G 03B3
+*H 0397
+H 03B7
+*I 0399
+I 03B9
+*K 039A
+K 03BA
+*L 039B
+L 03BB
+*M 039C
+M 03BC
+*N 039D
+N 03BD
+*O 039F
+O 03BF
+*P 03A0
+P 03C0
+*Q 0398
+Q 03B8
+*R 03A1
+R 03C1
+*S 03A3
+//S 03C2 // Greek Small Letter Final Sigma
+S  03C3  // Greek Small Letter Medial Sigma
+S1 03C3 // Greek Small Letter Medial Sigma
+S2 03C2 // Greek Small Letter Final Sigma
+*S3 03F9 // Greek Capital Lunate Sigma Symbol
+S3 03F2 // Greek Lunate Sigma Symbol
+*T 03A4
+T 03C4
+*U 03A5
+U 03C5
+*V 03DC
+V 03DD
+*W 03A9
+W 03C9
+*X 03A7
+X 03C7
+*Y 03A8
+Y 03C8
+*Z 0396
+Z 03B6
+) 0313
+( 0314
+/ 0301
+= 0342
+\ 0300
++ 0308
+| 0345
+? 0323
+. 002E
+, 002C
+: 00B7 // Middle Dot
+; 003B // Greek Question mark
+' 2019 // Right Single Quotation Mark
+- 2010 // EM Dash

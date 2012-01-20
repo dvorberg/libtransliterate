@@ -1,0 +1,94 @@
+// These codes follow the TLG Beta Code Quick Reference Guide
+// July 16, 2009
+//
+// o Syntax: Everything after // is ignored.
+// o Empty lines are ignored
+// o Everything else must be <code> <code point>
+//
+// Code points are hexadecimals.
+
+*A 2C80 // Α Coptic Capital Letter Alfa
+ A 2C81 // α Coptic Small Letter Alfa
+*B 2C82 // Β Coptic Capital Letter Vida
+ B 2C83 // β Coptic Small Letter Vida
+*C 2C9C // Ξ Coptic Capital Letter Ksi
+ C 2C9D // ξ Coptic Small Letter Ksi
+*D 2C86 // Δ Coptic Capital Letter Dalda
+ D 2C87 // δ Coptic Small Letter Dalda
+*E 2C88 // Ε Coptic Capital Letter Eie
+ E 2C89 // ε Coptic Small Letter Eie
+*F 2CAA // Φ Coptic Capital Letter Fi
+ F 2CAB // φ Coptic Small Letter Fi
+*f 03E5 // Ϥ Coptic Capital Letter Fei
+ f 03E6 // ϥ Coptic Small Letter Fei
+*G 2C84 // Γ Coptic Capital Letter Gamma
+ G 2C85 // γ Coptic Small Letter Gamma
+*g 03EC // Ϭ Coptic Capital Letter Shima
+ g 03ED // ϭ Coptic Small Letter Shima
+*H 2C8E // Η Coptic Capital Letter Hate
+ H 2C8F // η Coptic Small Letter Hate
+*h 03E8 // Ϩ Coptic Capital Letter Hori
+ h 03E9 // ϩ Coptic Small Letter Hori
+*I 2C92 // Ι Coptic Capital Letter Iauda
+ I 2C93 // ι Coptic Small Letter Iauda
+*j 03EA // Ϫ Coptic Capital Letter Gangia
+ j 03EB // ϫ Coptic Small Letter Gangia
+*K 2C94 // Κ Coptic Capital Letter Kapa
+ K 2C95 // κ Coptic Small Letter Kapa
+*L 2C96 // Λ Coptic Capital Letter Laula
+ L 2C97 // λ Coptic Small Letter Laula
+*M 2C98 // Μ Coptic Capital Letter Mi
+ M 2C99 // μ Coptic Small Letter Mi
+*N 2C9A // Ν Coptic Capital Letter Ni
+ N 2C9B // ν Coptic Small Letter Ni
+*O 2C9E // Ο Coptic Capital Letter O
+ O 2C9F // ο Coptic Small Letter O
+*P 2CA0 // Π Coptic Capital Letter Pi
+ P 2CA1 // π Coptic Small Letter Pi
+*Q 2C90 // Θ Coptic Capital Letter Thethe
+ Q 2C91 // θ Coptic Small Letter Thethe
+*R 2CA2 // Ρ Coptic Capital Letter Ro
+ R 2CA3 // ρ Coptic Small Letter Ro
+*S 2CA4 // Σ Coptic Capital Letter Sima
+ S 2CA5 // σ Coptic Small Letter Sima
+*s 03E2 // Ϣ Coptic Capital Letter Shei
+ s 03E3 // ϣ Coptic Small Letter Shei
+*T 2CA6 // Τ Coptic Capital Letter Tau
+ T 2CA7 // τ Coptic Small Letter Tau
+*t 03EE // Ϯ Coptic Capital Letter Dei
+ t 03EF // ϯ Coptic Small Letter Dei
+*U 2CA8 // Υ Coptic Capital Letter Ua
+ U 2CA9 // υ Coptic Small Letter Ua
+*W 2CB0 // Ω Coptic Capital Letter Oou
+ W 2CB1 // ω Coptic Small Letter Oou
+*X 2CAC // Χ Coptic Capital Letter Khi
+ X 2CAD // χ Coptic Small Letter Khi
+*Y 2CAE // Ψ Coptic Capital Letter Psi
+ Y 2CAF // ψ Coptic Small Letter Psi
+*Z 2C8C // Ζ Coptic Capital Letter Zata
+ Z 2C8D // ζ Coptic Small Letter Zata
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
