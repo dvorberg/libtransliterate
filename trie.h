@@ -202,10 +202,10 @@ public:
     
             if (append != 0)
             {
-                if (length + 1 < length)
+                if (length + 1 < buffer_size)
                 {
                     *ret_p = append;
-                    *ret_p += sizeof(value_char_type);
+                    ret_p++;
                     length++;
                 }
                 else
@@ -217,7 +217,7 @@ public:
                 }
             }
             
-            p += sizeof(value_char_type);
+            p++;
         } // while
         
         *ret_p = 0;

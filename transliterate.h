@@ -1,5 +1,8 @@
 #include <stdint.h>
 
+#ifndef TRANSLITERATE_H
+#define TRANSLITERATE_H
+
 /* The UTF-8 functions will tabe a regular C string containing beta code
  * and convert it to precombined greek characters (where ὤ is one UTF-8
  * encoded glyph). Character (-sequences) not recognized will be copied
@@ -8,13 +11,13 @@
  *
  * char *beta          - input string
  * char *output_buffer - You must provide the output buffer and a...
- * int buffer_length   - in bytes.
+ * size_t buffer_length   - in bytes.
  */
-int greek_beta_to_utf8(char *beta, char *output_buffer, int buffer_length);
+int greek_beta_to_utf8(char *beta, char *output_buffer, size_t buffer_length);
 
 /* This function reverses the effect of the above function and leaves
  * any UTF-8 byte sequence it doesn't recognize as-is. */   
-int greek_utf8_to_beta(char *beta, char *output_buffer, int buffer_length);
+int greek_utf8_to_beta(char *beta, char *output_buffer, size_t buffer_length);
  
 
 
@@ -41,14 +44,17 @@ int greek_utf8_to_beta(char *beta, char *output_buffer, int buffer_length);
  */
 int greek_asterisk_beta_to_utf16(char *beta,
                                  uint16_t *output_buffer,
-                                 int buffer_length);
+                                 size_t buffer_length);
 
 /* This function understands the characters of the combining (default)
  * and precombined variety.*/
 int greek_asterisk_utf16_to_beta(uint16_t *beta,
                                  char *output_buffer,
-                                 int buffer_length);
+                                 size_t buffer_length);
+
 
 int cjhebrew_to_utf16(char *cjhebrew,
                       uint16_t *output_buffer,
                       int buffer_length);
+
+#endif

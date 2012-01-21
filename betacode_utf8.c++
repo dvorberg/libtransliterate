@@ -76,13 +76,13 @@ backward_trie *utf8_to_beta_trie = new backward_trie();
  */
 int greek_beta_to_utf8(char *beta,
                        char *output_buffer,
-                       int output_buffer_length)
+                       size_t output_buffer_length)
 {
     char *input = strdup(beta);
 
     // memset(output_buffer, 0, output_buffer_length);
     char *ret_p = output_buffer;
-    int current_output_length = 0;
+    size_t current_output_length = 0;
 
     char unrecognized_buffer[2];
     unrecognized_buffer[1] = 0;
@@ -178,10 +178,10 @@ end:
 
 
 int greek_utf8_to_beta(char *utf8,
-                       char *output_buffer, int output_buffer_length)
+                       char *output_buffer, size_t output_buffer_length)
 {
     char *ret_p = output_buffer;
-    int current_output_length = 0;
+    size_t current_output_length = 0;
     
     char unrecognized_buffer[2];
     unrecognized_buffer[1] = 0;

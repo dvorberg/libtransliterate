@@ -18,6 +18,7 @@ public:
     cjhebrew_to_utf16_trie_t() {
         root = new trie<char, uint16_t>::node(0);
         add_cjhebrew_code_table(this);
+        finalize();
     }
 };
 
@@ -27,16 +28,16 @@ cjhebrew_to_utf16_trie_t *cjhebrew_to_utf16_trie =
 /* Return true, if the char p points to is the last consonant in a word. */
 inline int last_consonant(char *p)
 {
-    
+    do
+    {
+        p++;
+    }
     while(*p == 'i' || *p == 'e' || *p == 'E'
           || *p == ':' || *p == 'a' || *p == '/'
           || *p == 'A' || *p == 'o' || *p == 'u'
-          || *p == '*' || *p == '-' || *p == '|')
-    {
-        p++;
-    };
+          || *p == '*' || *p == '-' || *p == '|');
 
-    if (between_words(*p))
+    if (between_words(*p) || *p == 0)
     {
         return true;
     }
@@ -46,7 +47,6 @@ inline int last_consonant(char *p)
     }
 }
     
-
 int cjhebrew_to_utf16(char *cjhebrew,
                       uint16_t *output_buffer,
                       int buffer_length)

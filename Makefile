@@ -1,14 +1,11 @@
-CFLAGS=-g
-LDFLAGS=
+CFLAGS=-g -arch i386 -arch x86_64 
+LDFLAGS=-arch=i386 -arch x86_64 
 
 # The sources for the library
-SRCS=betacode_utf8.c++ betacode_utf16.c++ 
+SRCS=betacode_utf8.c++ betacode_utf16.c++ cjhebrew.c++
 
 # Test programs (these won't be installed)
 PROGS=beta2unicode.c++ unicode2beta.c++
-
-# This are the headers that form transliterate.h
-HEADERS=betacode.h cjhebrew.h
 
 OBJS=$(SRCS:%.c++=%.o) code_tables.o
 
@@ -18,7 +15,7 @@ CODE_LISTS=coptic.tbl greek_asterisk.tbl greek_case.tbl\
 	cjhebrew.tbl
 CODE_CXX=$(CODE_LISTS:%.tbl=%.inc)
 
-all: $(PROGS:%.c++=%) code_tables.o libtransliterate.la transliterate.h
+all: $(PROGS:%.c++=%) code_tables.o libtransliterate.la 
 
 %.o: %.c++
 	libtool --mode=compile $(CXX) $(CFLAGS) -c -o $@ $<
@@ -33,9 +30,6 @@ libtransliterate.la: $(OBJS)
 	libtool --mode=link gcc $(CFLAGS) -o libtransliterate.la \
 		-rpath /usr/local/lib $(OBJS:%.o=%.lo)
 
-transliterate.h: $(HEADERS)
-	cat $(HEADERS) > transliterate.h
-
 code_tables.o: code_tables.c++ tbl2cpp.py $(CODE_CXX)
 
 install: transliterate.h libtransliterate.la
@@ -46,8 +40,8 @@ install: transliterate.h libtransliterate.la
 
 depend: 
 	rm -f depend
-	$(CC) -MM $(SRCS) > depend
-	$(CC) -MM $(PROGS) >> depend
+	$(CXX) -MM $(SRCS) > depend
+	$(CXX) -MM $(PROGS) >> depend
 
 clean:
 	rm -f *.o

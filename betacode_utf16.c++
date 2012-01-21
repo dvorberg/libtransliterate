@@ -19,6 +19,7 @@ public:
         root = new trie<char, uint16_t>::node(0);
         add_greek_asterisk_code_table(this);
         add_specials_code_table(this);
+        finalize();
     }
 };
 
@@ -27,12 +28,12 @@ greek_asterisk_beta_to_utf16_trie_t *greek_asterisk_beta_to_utf16_trie =
 
 int greek_case_beta_to_utf16(char *beta,
                              uint16_t *output_buffer,
-                             int buffer_length)
+                             size_t buffer_length)
 {
     char *input = strdup(beta);
 
     uint16_t *ret_p = output_buffer;
-    int current_output_length = 0;
+    size_t current_output_length = 0;
 
     char *p = input;
     while (*p != 0)
@@ -113,7 +114,7 @@ end:
 
 int greek_case_utf16_to_beta(uint16_t *beta,
                              char *output_buffer,
-                             int buffer_length)
+                             size_t buffer_length)
 {
 
 }
