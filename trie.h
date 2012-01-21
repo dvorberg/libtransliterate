@@ -20,6 +20,8 @@ protected:
 
             sibling = NULL;
             child = NULL;
+
+            childcount = 0;
             children = NULL;
         }                
 
@@ -86,6 +88,9 @@ protected:
         }
 
         void finalize() {
+            if (children != NULL) delete children;
+            
+            childcount = 0;
             for (node *p = child; p != NULL; p = p->sibling)
             {
                 childcount++;
