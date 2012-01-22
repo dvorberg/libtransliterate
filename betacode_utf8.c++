@@ -25,7 +25,7 @@ public:
 
 /* The forward_trie class is for the beta_to_utf8 trie.
  */
-class forward_trie: public trie<char, char*>, public code_container
+class forward_trie: public trie<char, char>, public code_container
 {
 public:
     void add_code(const char *beta, const char *utf8) {
@@ -33,7 +33,7 @@ public:
     }
     
     forward_trie() {
-        root = new trie<char, char*>::node(0);
+        root = new trie<char, char>::node(0);
         add_codes();
         finalize();
     }
@@ -44,7 +44,7 @@ forward_trie *beta_to_utf8_trie = new forward_trie();
 
 /* The backward_trie class is for the utf8_to_beta trie.
  */
-class backward_trie: public trie<char, char*>, public code_container
+class backward_trie: public trie<char, char>, public code_container
 {
 public:
     void add_code(const char *beta, const char *utf8) {
@@ -52,7 +52,7 @@ public:
     }
     
     backward_trie() {
-        root = new trie<char, char*>::node(0);
+        root = new trie<char, char>::node(0);
         add_codes();
 
         // Extra UTF-8 codes that won't get added by add_codes(), because
@@ -67,6 +67,9 @@ public:
 backward_trie *utf8_to_beta_trie = new backward_trie();
 
 
+inline int between_words(char c) {
+    return c == ' ' || c == '\t' || c == '\n' || c == 0;
+}
 
 
 
