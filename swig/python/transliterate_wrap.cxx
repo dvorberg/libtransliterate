@@ -3057,6 +3057,7 @@ char *greek_utf8_to_beta_w(char *utf8)
 }
 
 
+
 SWIGINTERN swig_type_info*
 SWIG_pchar_descriptor(void)
 {

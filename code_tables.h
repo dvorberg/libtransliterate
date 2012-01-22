@@ -9,7 +9,7 @@
 class code_container
 {
 public:
-    virtual void add_pair(const char *beta, uint16_t codepoint) = 0;
+    virtual void add_pair(char *beta, uint16_t *utf16) = 0;
 };
 
 void add_greek_asterisk_code_table(code_container *container);

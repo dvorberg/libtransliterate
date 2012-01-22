@@ -1,10 +1,7 @@
 include flags.mak
 
 # The sources for the library
-SRCS=betacode_utf8.c++ betacode_utf16.c++ cjhebrew.c++
-
-# Test programs (these won't be installed)
-
+SRCS=betacode_greek.c++ cjhebrew.c++
 OBJS=$(SRCS:%.c++=%.o) code_tables.o
 
 CODE_LISTS=coptic.tbl greek_asterisk.tbl greek_case.tbl\
@@ -18,7 +15,7 @@ all: code_tables.o libtransliterate.la
 %.o: %.c++
 	libtool --mode=compile $(CXX) $(CFLAGS) -c -o $@ $<
 
-%.inc: %.tbl
+%.inc: %.tbl tbl2cpp.py
 	python tbl2cpp.py < $< > $@
 
 libtransliterate.la: $(OBJS)

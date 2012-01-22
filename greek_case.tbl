@@ -9,8 +9,21 @@
 //
 // Code points are hexadecimals.
 //
+// Trailing underscores (_) will be interpreted as "end of word or end of
+// input" to allow "final" versions of letters. If you want a literal
+// trailing underscore, use two (__). This is only for *trailing*
+// underscores.
 
 A 0391
+)/A 0391 0313 0301
+(/A 0391 0314 0301
+)\A 0391 0313 0300
+(\A 0391 0314 0300
+/A  0391 0313     
+\A  0391 0314     
+(A  0391 0301     
+)A  0391 0300     
+
 a 03B1
 B 0392
 b 03B2
@@ -19,14 +32,41 @@ c 03BE
 D 0394
 d 03B4
 E 0395
+)/E 0395 0313 0301
+(/E 0395 0314 0301
+)\E 0395 0313 0300
+(\E 0395 0314 0300
+/E  0395 0313     
+\E  0395 0314     
+(E  0395 0301     
+)E  0395 0300     
+
 e 03B5
 F 03A6
 f 03C6
 G 0393
 g 03B3
 H 0397
+)/H 0397 0313 0301
+(/H 0397 0314 0301
+)\H 0397 0313 0300
+(\H 0397 0314 0300
+/H  0397 0313     
+\H  0397 0314     
+(H  0397 0301     
+)H  0397 0300     
+
 h 03B7
 I 0399
+)/I 0399 0313 0301
+(/I 0399 0314 0301
+)\I 0399 0313 0300
+(\I 0399 0314 0300
+/I  0399 0313     
+\I  0399 0314     
+(I  0399 0301     
+)I  0399 0300     
+
 i 03B9
 K 039A
 k 03BA
@@ -36,17 +76,28 @@ M 039C
 m 03BC
 N 039D
 n 03BD
+
 O 039F
+)/O 039F 0313 0301
+(/O 039F 0314 0301
+)\O 039F 0313 0300
+(\O 039F 0314 0300
+/O  039F 0313     
+\O  039F 0314     
+(O  039F 0301     
+)O  039F 0300     
+
 o 03BF
 P 03A0
 p 03C0
 Q 0398
 q 03B8
 R 03A1
+(R 03A1 0301 
 r 03C1
 S 03A3
-//s 03C2 // Greek Small Letter Final Sigma
-s  03C3   // Greek Small Letter Medial Sigma
+s_ 03C2 // Greek Small Letter Final Sigma
+s  03C3 // Greek Small Letter Medial Sigma
 s1 03C3 // Greek Small Letter Medial Sigma
 s2 03C2 // Greek Small Letter Final Sigma
 S3 03F9 // Greek Capital Lunate Sigma Symbol
@@ -54,10 +105,29 @@ s3 03F2 // Greek Lunate Sigma Symbol
 T 03A4
 t 03C4
 U 03A5
+)/U 03A5 0313 0301
+(/U 03A5 0314 0301
+)\U 03A5 0313 0300
+(\U 03A5 0314 0300
+/U  03A5 0313     
+\U  03A5 0314     
+(U  03A5 0301     
+)U  03A5 0300     
+
 u 03C5
 V 03DC
 v 03DD
+
 W 03A9
+)/W 03A9 0313 0301
+(/W 03A9 0314 0301
+)\W 03A9 0313 0300
+(\W 03A9 0314 0300
+/W  03A9 0313     
+\W  03A9 0314     
+(W  03A9 0301     
+)W  03A9 0300     
+
 w 03C9
 X 03A7
 x 03C7
@@ -65,6 +135,7 @@ Y 03A8
 y 03C8
 Z 0396
 z 03B6
+
 ) 0313
 ( 0314
 / 0301

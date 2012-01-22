@@ -1,4 +1,4 @@
-// -*- mode: objc; -*_
+// -*- mode: objc; coding: utf-8; -*-
 
 #import <stdio.h>
 #import <Foundation/Foundation.h>
@@ -10,31 +10,31 @@ int main(int argc, char **argv)
     
     if (argc <= 1)
     {
-        printf("Usage: %s <cjhebrew>\n", argv[0]);
+        printf("Usage: %s <cjhebrew>", argv[0]);
         exit(-1);
     }
 
     for (int a = 1; a < argc; a++)
     {
-        size_t buflen = strlen(argv[a]) * 4; // Chars!
+        size_t buflen = strlen(argv[a]) * 4;
         uint16_t *buffer = (uint16_t *)malloc(buflen * sizeof(uint16_t));
-        int length = transliterate::cjhebrew_to_utf16(argv[a], buffer, buflen);
+        int length = transliterate::betacode_greek_to_utf16(
+            argv[a], buffer, buflen, 0, 0);
 
         NSString *out = [[NSString alloc]
                             initWithCharactersNoCopy: buffer
                                               length: length
                                         freeWhenDone: YES];
-        printf("%s", [out UTF8String]);
+        printf("%s ", [out UTF8String]);
 
-        if ( a < argc-1 )
+        printf("\n");
+        for(int b = 0; b < length; b++)
         {
-            printf(" ");
+            printf("%x ", buffer[b]);
         }
-        else
-        {
-            printf("\n");
-        }
+        printf("\n");
     }
+    printf("\n");
 
     [pool release];
     

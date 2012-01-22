@@ -17,6 +17,7 @@ char *greek_utf8_to_beta_w(char *utf8)
     greek_utf8_to_beta(utf8, buffer, buflen);
     return buffer;
 }
+
 %}
 
 %rename(greek_beta_to_utf8) greek_beta_to_utf8_w;
@@ -24,5 +25,5 @@ char *greek_utf8_to_beta_w(char *utf8)
 
 char *greek_beta_to_utf8_w(char *beta);
 char *greek_utf8_to_beta_w(char *utf8);
-                            
+
 

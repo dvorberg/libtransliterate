@@ -1,3 +1,14 @@
+// o Syntax: Everything after // is ignored.
+// o Empty lines are ignored
+// o Everything else must be <code> <code point>
+//
+// Code points are hexadecimals.
+//
+// Trailing underscores (_) will be interpreted as "end of word or end of
+// input" to allow "final" versions of letters. If you want a literal
+// trailing underscore, use two (__). This is only for *trailing*
+// underscores.
+
 '  05D0 // א  Aleph
 b  05D1 // ב  Beth
 g  05D2 // ג  Gimmel
@@ -10,50 +21,69 @@ z  05D6 // ז  Zajin
 y  05D9 // י  Jod
 
 k  05DB // כ  Kaph
-K| 05DB // כ  Kaph
-
-K  05DA //    End-Kaph
-k! 05DA //    End-Kaph
+K|_ 05DB // כ  Kaph
+k|_ 05DB // כ  Kaph
+K\zeronojoin_ 05DB // כ  Kaph
+k\zeronojoin_ 05DB // כ  Kaph
+k_ 05DA //    Final-Kaph
+K  05DA //    Final-Kaph
+k! 05DA //    Final-Kaph
 
 l  05DC // ל  Lamech
 
 m  05DE // מ  Mem
-M|  05DE // מ  Mem
-M  05DD //    End-Mem
-m! 05DD //    End-Mem
-m\endofword 05DD //    End-Mem
+M|_ 05DE // מ  Mem
+m|_ 05DE // מ  Mem
+M\zeronojoin_ 05DE // מ  Mem
+m\zeronojoin_ 05DE // מ  Mem
+m_ 05DD //    Final-Mem
+M  05DD //    Final-Mem
+m! 05DD //    Final-Mem
+m\endofword 05DD //    Final-Mem
 
 n  05E0 // נ  Nun
-N|  05E0 // נ  Nun
-N  05DF //    End-nun
-n! 05DF //    End-nun
-n\endofword 05DF //    End-nun
+N|_ 05E0 // נ  Nun
+n|_ 05E0 // נ  Nun
+N\zeronojoin_ 05E0 // נ  Nun
+n\zeronojoin_ 05E0 // נ  Nun
+n_ 05E0 // נ  Nun
+N  05DF //    Final-nun
+n! 05DF //    Final-nun
+n\endofword 05DF //    Final-nun
 
 s  05E1 // ס  Samech
-‘  05E2 // ע  Ajin
+`  05E2 // ע  Ajin
 
 p  05E4 // פ  Pe
-P|  05E4 // פ  Pe
-P  05E3 //    End-Pe
-p!  05E3 //    End-Pe
-p\endofword  05E3 //    End-Pe
+P|_ 05E4 // פ  Pe
+p|_ 05E4 // פ  Pe
+P\zeronojoin_ 05E4 // פ  Pe
+p\zeronojoin_ 05E4 // פ  Pe
+p_ 05E3 //    Final-Pe
+P  05E3 //    Final-Pe
+p! 05E3 //    Final-Pe
+p\endofword  05E3 //    Final-Pe
 
 .s 05E6 // צ  Tzade
-.S| 05E6 // צ  Tzade
-.S 05E5 //    End-Tzade
-.s! 05E5 //    End-Tzade
-.s\endofword 05E5 //    End-Tzade
+.S|_ 05E6 // צ  Tzade
+.s|_ 05E6 // צ  Tzade
+.S_ 05E6 // צ  Tzade
+.s\zeronojoin_ 05E6 // צ  Tzade
+.s\zeronojoin_ 05E5 //    Final-Tzade
+.S 05E5 //    Final-Tzade
+.s! 05E5 //    Final-Tzade
+.s\endofword 05E5 //    Final-Tzade
 
 q  05E7 // ק  Qoph
 r  05E8 // ר  Resch
 /s 05E9 // ש  Sin/Schin
-,s FB2B // 05E9 05C2 // ׂש Sin   05C2 HEBREW POINT SIN DOT
-+s FB2A // 05E9 05C1 // שׁ Schin 05C1 HEBREW POINT SHIN DOT
+,s 05E9 05C2 // ׂש Sin   05C2 HEBREW POINT SIN DOT   FB2B // 
++s 05E9 05C1 // שׁ Schin 05C1 HEBREW POINT SHIN DOT   FB2A // 
 t  05EA // ת  Taw
 
 -- 05BE // Maqaf
 
-I  05B4 // Chiriq
+i  05B4 // Chiriq
 e  05B5 // Sere
 E  05B6 // Seggol
 E: 05B1 // Chataph-Seggol
@@ -66,8 +96,9 @@ o  05B9 // Choläm
 u  05BB // Qubbuz
 *  05BC // Dagesh
 :  05B0 // Schwa
-O  FB4B // 05D5 05BA // Choläm-Magnum 
-wo FB4B // 05D5 05BA // Choläm-Magnum 
-U  FB35 // 05D5 05BC // Schuruq
-w* FB35 // 05D5 05BC // Schuruq
+O  05D5 05BA // Choläm-Magnum FB4B
+wo 05D5 05BA // Choläm-Magnum FB4B 
+U  05D5 05BC // Schuruq FB35
+w* 05D5 05BC // Schuruq FB35
+
 ;  05C3 // ׃ Sof Pasuq

@@ -1,0 +1,2 @@
+#include <Python.h>
+#define wchar_t Py_UNICODE

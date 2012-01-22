@@ -11,7 +11,12 @@ class cjhebrew_to_utf16_trie_t:
     public code_container
 {
 public:
-    void add_pair(const char *beta, uint16_t codepoint) {
+    /* Return true if c is a whitespace character. */
+    virtual int between_words(char c) {
+        return c == ' ' || c == '\t' || c == '\n' || c == 0 || c == '-';
+    }
+    
+    void add_pair(char *beta, uint16_t *codepoint) {
         add((char *)beta, codepoint);
     }
 
@@ -25,56 +30,15 @@ public:
 cjhebrew_to_utf16_trie_t *cjhebrew_to_utf16_trie =
     new cjhebrew_to_utf16_trie_t();
 
-/* Return true, if the char p points to is the last consonant in a word. */
-inline int last_consonant(char *p)
-{
-    do
-    {
-        p++;
-    }
-    while(*p == 'i' || *p == 'e' || *p == 'E'
-          || *p == ':' || *p == 'a' || *p == '/'
-          || *p == 'A' || *p == 'o' || *p == 'u'
-          || *p == '*' || *p == '-' || *p == '|');
 
-    if (between_words(*p) || *p == 0)
+namespace transliterate
+{
+    size_t cjhebrew_to_utf16(char *cjhebrew,
+                             uint16_t *output_buffer,
+                             size_t buffer_length)
     {
-        return true;
-    }
-    else
-    {
-        return false;
+        return cjhebrew_to_utf16_trie->process(cjhebrew, output_buffer,
+                                               buffer_length);
     }
 }
-    
-int cjhebrew_to_utf16(char *cjhebrew,
-                      uint16_t *output_buffer,
-                      int buffer_length)
-{
-    // Make a temporary copy of the
-    char *input = strdup(cjhebrew);
-
-    // Those of the k, m, n, p and .s codes that are the last in a
-    // word will converted to upper case to create end-variants of
-    // their respecive Hebrew glyphs.
-    for (char *p = input; *p != 0; p++)
-    {        
-        if (*p == 'k' || *p == 'm' || *p == 'n' || *p == 'p' || (
-                *p == 's' && p != input && *(p-1) == '.'))
-        {
-            if ( last_consonant(p) )
-            {
-                *p = upcase(*p);
-            }
-        }
-    }
-
-    // Perform the conversion.
-    int ret = cjhebrew_to_utf16_trie->process(input, output_buffer,
-                                              buffer_length);
-
-    free(input);
-    return ret;
-}
-
 

@@ -1,5 +1,4 @@
 // -*- mode: c++; coding: utf-8; -*-
-
 template <typename key_char_type, typename value_char_type>
 class trie
 {
@@ -8,7 +7,7 @@ protected:
     {
     public:
         key_char_type key;
-        value_char_type value;
+        value_char_type *value;
             
         node *sibling, *child;
 
@@ -133,7 +132,7 @@ public:
         root = new node(0);
     };
     
-    void add(key_char_type *key, value_char_type value) {
+    void add(key_char_type *key, value_char_type *value) {
         node *here = root, *child = NULL;
         for (key_char_type *p = key; *p != 0; p += sizeof(key_char_type))
         {
@@ -150,17 +149,48 @@ public:
         here->value = value;
     }
 
-    value_char_type lookup_next(key_char_type **buffer_p) {
+    /* Return true if c is a whitespace character. */
+    virtual int between_words(key_char_type c) {
+        return c == ' ' || c == '\t' || c == '\n' || c == 0;
+    }
+    
+    value_char_type *lookup_next(key_char_type **buffer_p) {
         node *here = root, *child = NULL;
+
+        // If we run into a dead end on the tree, we return the value
+        // from the first node we met that carries one and reset the
+        // buffer pointer to the char that brought us there.
+        value_char_type *first_value = NULL;
+        key_char_type *first_value_p = NULL;
         
         do
         {
-            child = here->which_child_has_key(**buffer_p);
+            value_char_type key;
+            if ( between_words(**buffer_p) )
+            {
+                key = ' ';
+            }
+            else
+            {
+                key = **buffer_p;
+            }
+
+            child = here->which_child_has_key(key);
+            if (here->key == ' ') (*buffer_p)--;
+
             if (child == NULL)
             {
                 if (here->value == 0)
                 {
-                    return 0;
+                    if (first_value == NULL)
+                    {
+                        return NULL;
+                    }
+                    else
+                    {
+                        *buffer_p = first_value_p;
+                        return first_value;
+                    }
                 }
                 else
                 {
@@ -170,59 +200,81 @@ public:
             }
             else
             {
+                if (first_value == NULL)
+                {
+                    first_value = child->value;
+                    first_value_p = *buffer_p;
+                }
                 here = child;
             }
 
-            (*buffer_p)++;            
-        } while (**buffer_p != 0);
+            if (**buffer_p == 0) break;
+            (*buffer_p)++;
+        } while (true);
 
         return here->value;
     };
 
-    int process(key_char_type *input,
-                value_char_type *output_buffer,
-                int buffer_size) {
-        
+    virtual size_t process(key_char_type *input,
+                           value_char_type *output_buffer,
+                           int buffer_size) {        
         value_char_type *ret_p = output_buffer;
-        int length = 0;
+        size_t length = 0;
 
         key_char_type *p = input;
+        value_char_type unrecognized[2];
+        unrecognized[1] = 0;
+
         while (*p != 0)
         {
-            value_char_type append = 0;
-        
-            value_char_type result = lookup_next(&p);
-            if (result == 0)
+            value_char_type *append = NULL;
+
+            if (between_words(*p))
             {
-                // We didn't find the byte sequence in the tree and so
-                // we copy the next char verbatim and start over with the
-                // char after that.
-                append = (value_char_type)*p;
+                unrecognized[0] = *p;
+                append = unrecognized; 
             }
             else
             {
-                append = result;
-            }
-
-    
-            if (append != 0)
-            {
-                if (length + 1 < buffer_size)
+                value_char_type *result = lookup_next(&p);
+                if (result == NULL)
                 {
-                    *ret_p = append;
-                    ret_p++;
-                    length++;
+                    // We didn't find the byte sequence in the tree and so
+                    // we copy the next char verbatim and start over with the
+                    // char after that.
+                    unrecognized[0] = *p;
+                    append = unrecognized;
                 }
                 else
                 {
-                    // We have reached the end of the output buffer.
-                    // There is nothing more to do for us but cleanup
-                    // and return to the caller.
-                    break;
+                    append = result;
                 }
             }
             
-            p++;
+            int to_append = 0;
+            for (value_char_type *q = append; *q != 0; q++)
+            {
+                to_append++;
+            }
+            
+            if (length + to_append < buffer_size)
+            {
+                for (value_char_type *q = append; *q != 0; q++)
+                {
+                    *ret_p = *q;                    
+                    *ret_p++;
+                    length++;
+                }
+            }
+            else
+            {
+                // We have reached the end of the output buffer.
+                // There is nothing more to do for us but cleanup
+                // and return to the caller.
+                break;
+            }
+
+            if (*p != 0) p++;
         } // while
         
         *ret_p = 0;

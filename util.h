@@ -1,10 +1,3 @@
-/* Return true if c is a whitespace character. */
-inline int between_words(char c)
-{
-    return c == ' ' || c == '\t' || c == '\n' || c == 0 || c == ','
-        || c == '.' || c == ';' || c == ':' || c == '-';
-}
-
 inline char upcase(char c)
 {
     if (c >= 'a' && c <= 'z')
@@ -28,3 +21,4 @@ inline char downcase(char c)
         return c;
     }
 }
+

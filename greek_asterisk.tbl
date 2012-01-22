@@ -6,9 +6,24 @@
 // o Everything else must be <code> <code point>
 //
 // Code points are hexadecimals.
+//
+// Trailing underscores (_) will be interpreted as "end of word or end of
+// input" to allow "final" versions of letters. If you want a literal
+// trailing underscore, use two (__). This is only for *trailing*
+// underscores.
 
 *A 0391
 A 03B1
+
+*)/A 0391 0313 0301
+*(/A 0391 0314 0301
+*)\A 0391 0313 0300
+*(\A 0391 0314 0300
+*/A  0391 0313     
+*\A  0391 0314     
+*(A  0391 0301     
+*)A  0391 0300     
+
 *B 0392
 B 03B2
 *C 039E
@@ -17,14 +32,46 @@ C 03BE
 D 03B4
 *E 0395
 E 03B5
+
+*)/E 0395 0313 0301
+*(/E 0395 0314 0301
+*)\E 0395 0313 0300
+*(\E 0395 0314 0300
+*/E  0395 0313     
+*\E  0395 0314     
+*(E  0395 0301     
+*)E  0395 0300     
+
+
 *F 03A6
 F 03C6
 *G 0393
 G 03B3
 *H 0397
 H 03B7
+
+*)/H 0397 0313 0301
+*(/H 0397 0314 0301
+*)\H 0397 0313 0300
+*(\H 0397 0314 0300
+*/H  0397 0313     
+*\H  0397 0314     
+*(H  0397 0301     
+*)H  0397 0300     
+
 *I 0399
 I 03B9
+
+*)/I 0399 0313 0301
+*(/I 0399 0314 0301
+*)\I 0399 0313 0300
+*(\I 0399 0314 0300
+*/I  0399 0313     
+*\I  0399 0314     
+*(I  0399 0301     
+*)I  0399 0300     
+
+
 *K 039A
 K 03BA
 *L 039B
@@ -35,33 +82,73 @@ M 03BC
 N 03BD
 *O 039F
 O 03BF
+
+*)/O 039F 0313 0301
+*(/O 039F 0314 0301
+*)\O 039F 0313 0300
+*(\O 039F 0314 0300
+*/O  039F 0313     
+*\O  039F 0314     
+*(O  039F 0301     
+*)O  039F 0300     
+
+
 *P 03A0
 P 03C0
 *Q 0398
 Q 03B8
 *R 03A1
 R 03C1
+
+*(R 03A1 0301 
+
 *S 03A3
-//S 03C2 // Greek Small Letter Final Sigma
+S_ 03C2 // Greek Small Letter Final Sigma
 S  03C3  // Greek Small Letter Medial Sigma
 S1 03C3 // Greek Small Letter Medial Sigma
 S2 03C2 // Greek Small Letter Final Sigma
 *S3 03F9 // Greek Capital Lunate Sigma Symbol
 S3 03F2 // Greek Lunate Sigma Symbol
+
 *T 03A4
 T 03C4
 *U 03A5
+*)/U 03A5 0313 0301
+*(/U 03A5 0314 0301
+*)\U 03A5 0313 0300
+*(\U 03A5 0314 0300
+*/U  03A5 0313     
+*\U  03A5 0314     
+*(U  03A5 0301     
+*)U  03A5 0300     
+
 U 03C5
 *V 03DC
 V 03DD
+
 *W 03A9
 W 03C9
+
+*)/W 03A9 0313 0301
+*(/W 03A9 0314 0301
+*)\W 03A9 0313 0300
+*(\W 03A9 0314 0300
+*/W  03A9 0313     
+*\W  03A9 0314     
+*(W  03A9 0301     
+*)W  03A9 0300     
+
+
 *X 03A7
 X 03C7
 *Y 03A8
 Y 03C8
 *Z 0396
 Z 03B6
+
+
+
+
 ) 0313
 ( 0314
 / 0301
@@ -76,3 +163,132 @@ Z 03B6
 ; 003B // Greek Question mark
 ' 2019 // Right Single Quotation Mark
 - 2010 // EM Dash
+
+
+
+*a 0391
+a 03b1
+
+*)/a 0313 0301 0391
+*(/a 0314 0301 0391
+*)\a 0313 0300 0391
+*(\a 0314 0300 0391
+*/a  0313      0391
+*\a  0314      0391
+*(a  0301      0391
+*)a  0300      0391
+
+*b 0392
+b 03b2
+*c 039e
+c 03be
+*d 0394
+d 03b4
+*e 0395
+e 03b5
+
+*)/e 0313 0301 0395
+*(/e 0314 0301 0395
+*)\e 0313 0300 0395
+*(\e 0314 0300 0395
+*/e  0313      0395
+*\e  0314      0395
+*(e  0301      0395
+*)e  0300      0395
+
+
+*f 03a6
+f 03c6
+*g 0393
+g 03b3
+*h 0397
+h 03b7
+
+*)/h 0313 0301 0397
+*(/h 0314 0301 0397
+*)\h 0313 0300 0397
+*(\h 0314 0300 0397
+*/h  0313      0397
+*\h  0314      0397
+*(h  0301      0397
+*)h  0300      0397
+
+*i 0399
+i 03b9
+
+*)/i 0313 0301 0399
+*(/i 0314 0301 0399
+*)\i 0313 0300 0399
+*(\i 0314 0300 0399
+*/i  0313      0399
+*\i  0314      0399
+*(i  0301      0399
+*)i  0300      0399
+
+
+*k 039a
+k 03ba
+*l 039b
+l 03bb
+*m 039c
+m 03bc
+*n 039d
+n 03bd
+*o 039f
+o 03bf
+
+*)/o 0313 0301 039f
+*(/o 0314 0301 039f
+*)\o 0313 0300 039f
+*(\o 0314 0300 039f
+*/o  0313      039f
+*\o  0314      039f
+*(o  0301      039f
+*)o  0300      039f
+
+
+*p 03a0
+p 03c0
+*q 0398
+q 03b8
+*r 03a1
+r 03c1
+
+*(r 0301 03a1
+
+*s 03a3
+s_ 03c2 // greek small letter final sigma
+s  03c3  // greek small letter medial sigma
+s1 03c3 // greek small letter medial sigma
+s2 03c2 // greek small letter final sigma
+*s3 03f9 // greek capital lunate sigma symbol
+s3 03f2 // greek lunate sigma symbol
+
+*t 03a4
+t 03c4
+*u 03a5
+u 03c5
+*v 03dc
+v 03dd
+
+*w 03a9
+w 03c9
+
+*)/w 0313 0301 03a9
+*(/w 0314 0301 03a9
+*)\w 0313 0300 03a9
+*(\w 0314 0300 03a9
+*/w  0313      03a9
+*\w  0314      03a9
+*(w  0301      03a9
+*)w  0300      03a9
+
+
+*x 03a7
+x 03c7
+*y 03a8
+y 03c8
+*z 0396
+z 03b6
+
+
