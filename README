@@ -21,6 +21,16 @@ o a swig interface definition that may work with your favorite
 o and a hand-coded Python interface with native Python Unicode
   support (if your interpreter is built right, which is likely).
 
-It has a BSD style license. See the LICENSE file.
+For documentation see transliteration.h. Just running
+
+   make
+   su make install
+   
+should give you a working copy on MacOSX and Linux. It you're using
+another system and get it to work I'd appreciate a patch. If you can't
+get it to work or don't know how, don't hesitate to contact me.
   
-See http://www.tux4web.de/libtransliterate/ for more information.
+It has a BSD style license. See the LICENSE file.
+
+Diedrich Vorberg <diedrich@tux4web.de>
+
