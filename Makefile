@@ -1,5 +1,7 @@
 include flags.mak
 
+RELEASE=0.1
+
 # The sources for the library
 SRCS=betacode_greek.c++ betacode_coptic.c++ betacode_hebrew.c++ \
 	cjhebrew.c++ conversion.c++
@@ -22,8 +24,9 @@ all: code_tables.o libtransliterate.la
 	python tbl2cpp.py < $< > $@
 
 libtransliterate.la: $(OBJS)
-	libtool --mode=link gcc $(CFLAGS) -o libtransliterate.la \
-		-rpath /usr/local/lib $(OBJS:%.o=%.lo)
+	libtool --mode=link \
+		gcc $(CFLAGS) -o libtransliterate.la -release $(RELEASE) \
+			-rpath /usr/local/lib $(OBJS:%.o=%.lo)
 
 code_tables.o: code_tables.c++ tbl2cpp.py $(CODE_CXX)
 
