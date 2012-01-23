@@ -11,15 +11,15 @@ o The Thesaurus Linguae Graecae’s Beta Code for Polytonic Greek,
 o cjhebrew transliteration from the LaTeX package by that name
 
 I don’t know much about Coptic, so the functions for that language
-remain largely untested. The Beta Code representation for Hebrew is
-missing vowel and diacritical marks entirely.
+remain untested. The Beta Code representation for Hebrew does not
+support vowel and diacritical marks by design, cjhebrew does.
 
 The library comes with
 
 o a swig interface definition that may work with your favorite
   scripting language
-o and a hand-coded Python interface with native Python Unicode
-  support (if your interpreter is built right, which is likely).
+o and a hand-coded interface with native Python Unicode support (if
+  your interpreter is built right, which is likely).
 
 For documentation see transliteration.h. Just running
 
@@ -28,7 +28,8 @@ For documentation see transliteration.h. Just running
    
 should give you a working copy on MacOSX and Linux. It you're using
 another system and get it to work I'd appreciate a patch. If you can't
-get it to work or don't know how, don't hesitate to contact me.
+get it to work or don't know how to, contact me and we'll try to
+figure something out.
   
 It has a BSD style license. See the LICENSE file.
 
