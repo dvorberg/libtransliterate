@@ -1,4 +1,19 @@
 #!/usr/bin/env python
+# -*- mode: python; encoding: utf-8; -*_
+
+## This file is part of libtransliterate
+##
+## Copyright 2012 by Diedrich Vorberg <diedrich@tux4web.de>
+##
+## All Rights Reserved.
+##
+## For more Information on orm see the README and LICENSE file.
+##
+## THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+## CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+## INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+## MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+## DISCLAIMED.
 
 import sys, re
 from string import *
@@ -32,6 +47,10 @@ def pair(line):
         return beta, map(lambda hex: int(hex, 16), parts[1:])
     
 def main():
+    print "// DO NOT MODIFY!"
+    print "// This file has been automatically generated."
+    print
+    
     pairs = map(pair, sys.stdin.readlines())
     pairs = filter(lambda p: p is not None, pairs)
 

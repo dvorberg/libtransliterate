@@ -1,4 +1,18 @@
-// -*- mode: objc; coding: utf-8; -*-
+// -*- mode: objc; encoding: utf-8; -*_
+//
+// This file is part of libtransliterate
+//
+// Copyright 2012 by Diedrich Vorberg <diedrich@tux4web.de>
+//
+// All Rights Reserved.
+//
+// For more Information on orm see the README and LICENSE file.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+// CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+// INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED.
 
 #import <stdio.h>
 #import <Foundation/Foundation.h>
@@ -25,7 +39,13 @@ int main(int argc, char **argv)
                             initWithCharactersNoCopy: buffer
                                               length: length
                                         freeWhenDone: YES];
-        printf("%s ", [out UTF8String]);
+        printf("%s\n", [out UTF8String]);
+
+        char converted[2048];
+        transliterate::utf16_to_utf8(
+            buffer, converted, sizeof(converted));
+        printf("%s\n", converted);
+        
 
         printf("\n");
         for(int b = 0; b < length; b++)

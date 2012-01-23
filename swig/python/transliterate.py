@@ -67,14 +67,10 @@ except AttributeError:
     _newclass = 0
 
 
-
-def greek_beta_to_utf8(*args):
-  return _transliterate.greek_beta_to_utf8(*args)
-greek_beta_to_utf8 = _transliterate.greek_beta_to_utf8
-
-def greek_utf8_to_beta(*args):
-  return _transliterate.greek_utf8_to_beta(*args)
-greek_utf8_to_beta = _transliterate.greek_utf8_to_beta
 # This file is compatible with both classic and new-style classes.
 
+
+def betacode_greek_to_utf8(*args):
+  return _transliterate.betacode_greek_to_utf8(*args)
+betacode_greek_to_utf8 = _transliterate.betacode_greek_to_utf8
 

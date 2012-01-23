@@ -3040,20 +3040,44 @@ namespace swig {
 
 #include <transliterate.h>
 
-char *greek_beta_to_utf8_w(char *beta)
+char *betacode_greek_to_utf8(char *beta,
+                             int precombined = 0,
+                             int asterisk_syntax = 0)
 {
-    size_t buflen = strlen(beta) * 3;
-    char *buffer = (char *)malloc(buflen);
-    greek_beta_to_utf8(beta, buffer, buflen);
-    return buffer;
-}
+    // Take a good guess at how many characters the unicode string is
+    // going to contain.
+    size_t buflen16 = strlen(beta);
+    // Increase size by 1/4th to make sure there's enough room.
+    buflen16 += buflen16 >> 2;
 
-char *greek_utf8_to_beta_w(char *utf8)
-{
-    size_t buflen = strlen(utf8);
-    char *buffer = (char *)malloc(buflen);
-    greek_utf8_to_beta(utf8, buffer, buflen);
-    return buffer;
+    printf("buflen16=%i  strlen(beta)=%i\n", buflen16, strlen(beta));
+    
+    // Allocate a buffer.
+    uint16_t *buffer16 = (uint16_t *)malloc(buflen16 * sizeof(uint16_t));
+
+    // Do the conversion.
+    size_t length = transliterate::betacode_greek_to_utf16(
+        beta, buffer16, buflen16);
+    
+    for (int a = 0; a < length; a++)
+    {
+        printf("%x ", buffer16[a]);
+    }
+    printf("\n");
+
+    // The output buffer size we calculated take * 1.5
+    size_t buflen8 = 2*buflen16;
+
+    // Allocate the buffer
+    char *buffer8 = (char *)malloc(buflen8);
+
+    // UTF-16 to -8 conversion
+    transliterate::utf16_to_utf8(buffer16, buffer8, buflen8);
+    free(buffer16);
+
+    printf("%s\n", buffer8);
+    
+    return buffer8;
 }
 
 
@@ -3150,6 +3174,151 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
 
 
 
+#include <limits.h>
+#if !defined(SWIG_NO_LLONG_MAX)
+# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
+#   define LLONG_MAX __LONG_LONG_MAX__
+#   define LLONG_MIN (-LLONG_MAX - 1LL)
+#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
+# endif
+#endif
+
+
+SWIGINTERN int
+SWIG_AsVal_double (PyObject *obj, double *val)
+{
+  int res = SWIG_TypeError;
+  if (PyFloat_Check(obj)) {
+    if (val) *val = PyFloat_AsDouble(obj);
+    return SWIG_OK;
+  } else if (PyInt_Check(obj)) {
+    if (val) *val = PyInt_AsLong(obj);
+    return SWIG_OK;
+  } else if (PyLong_Check(obj)) {
+    double v = PyLong_AsDouble(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_OK;
+    } else {
+      PyErr_Clear();
+    }
+  }
+#ifdef SWIG_PYTHON_CAST_MODE
+  {
+    int dispatch = 0;
+    double d = PyFloat_AsDouble(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = d;
+      return SWIG_AddCast(SWIG_OK);
+    } else {
+      PyErr_Clear();
+    }
+    if (!dispatch) {
+      long v = PyLong_AsLong(obj);
+      if (!PyErr_Occurred()) {
+	if (val) *val = v;
+	return SWIG_AddCast(SWIG_AddCast(SWIG_OK));
+      } else {
+	PyErr_Clear();
+      }
+    }
+  }
+#endif
+  return res;
+}
+
+
+#include <float.h>
+
+
+#include <math.h>
+
+
+SWIGINTERNINLINE int
+SWIG_CanCastAsInteger(double *d, double min, double max) {
+  double x = *d;
+  if ((min <= x && x <= max)) {
+   double fx = floor(x);
+   double cx = ceil(x);
+   double rd =  ((x - fx) < 0.5) ? fx : cx; /* simple rint */
+   if ((errno == EDOM) || (errno == ERANGE)) {
+     errno = 0;
+   } else {
+     double summ, reps, diff;
+     if (rd < x) {
+       diff = x - rd;
+     } else if (rd > x) {
+       diff = rd - x;
+     } else {
+       return 1;
+     }
+     summ = rd + x;
+     reps = diff/summ;
+     if (reps < 8*DBL_EPSILON) {
+       *d = rd;
+       return 1;
+     }
+   }
+  }
+  return 0;
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_long (PyObject *obj, long* val)
+{
+  if (PyInt_Check(obj)) {
+    if (val) *val = PyInt_AsLong(obj);
+    return SWIG_OK;
+  } else if (PyLong_Check(obj)) {
+    long v = PyLong_AsLong(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_OK;
+    } else {
+      PyErr_Clear();
+    }
+  }
+#ifdef SWIG_PYTHON_CAST_MODE
+  {
+    int dispatch = 0;
+    long v = PyInt_AsLong(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_AddCast(SWIG_OK);
+    } else {
+      PyErr_Clear();
+    }
+    if (!dispatch) {
+      double d;
+      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
+      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, LONG_MIN, LONG_MAX)) {
+	if (val) *val = (long)(d);
+	return res;
+      }
+    }
+  }
+#endif
+  return SWIG_TypeError;
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_int (PyObject * obj, int *val)
+{
+  long v;
+  int res = SWIG_AsVal_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v < INT_MIN || v > INT_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = static_cast< int >(v);
+    }
+  }  
+  return res;
+}
+
+
 SWIGINTERNINLINE PyObject *
 SWIG_FromCharPtrAndSize(const char* carray, size_t size)
 {
@@ -3180,22 +3349,40 @@ SWIG_FromCharPtr(const char *cptr)
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap_greek_beta_to_utf8(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_betacode_greek_to_utf8__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   char *arg1 = (char *) 0 ;
+  int arg2 ;
+  int arg3 ;
   int res1 ;
   char *buf1 = 0 ;
   int alloc1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
   PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   char *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:greek_beta_to_utf8",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"OOO:betacode_greek_to_utf8",&obj0,&obj1,&obj2)) SWIG_fail;
   res1 = SWIG_AsCharPtrAndSize(obj0, &buf1, NULL, &alloc1);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "greek_beta_to_utf8" "', argument " "1"" of type '" "char *""'");
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "betacode_greek_to_utf8" "', argument " "1"" of type '" "char *""'");
   }
   arg1 = reinterpret_cast< char * >(buf1);
-  result = (char *)greek_beta_to_utf8_w(arg1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "betacode_greek_to_utf8" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "betacode_greek_to_utf8" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  result = (char *)betacode_greek_to_utf8(arg1,arg2,arg3);
   resultobj = SWIG_FromCharPtr((const char *)result);
   if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
   return resultobj;
@@ -3205,7 +3392,41 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_greek_utf8_to_beta(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_betacode_greek_to_utf8__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  char *arg1 = (char *) 0 ;
+  int arg2 ;
+  int res1 ;
+  char *buf1 = 0 ;
+  int alloc1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:betacode_greek_to_utf8",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_AsCharPtrAndSize(obj0, &buf1, NULL, &alloc1);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "betacode_greek_to_utf8" "', argument " "1"" of type '" "char *""'");
+  }
+  arg1 = reinterpret_cast< char * >(buf1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "betacode_greek_to_utf8" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  result = (char *)betacode_greek_to_utf8(arg1,arg2);
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return resultobj;
+fail:
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_betacode_greek_to_utf8__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   char *arg1 = (char *) 0 ;
   int res1 ;
@@ -3214,26 +3435,88 @@ SWIGINTERN PyObject *_wrap_greek_utf8_to_beta(PyObject *SWIGUNUSEDPARM(self), Py
   PyObject * obj0 = 0 ;
   char *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:greek_utf8_to_beta",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:betacode_greek_to_utf8",&obj0)) SWIG_fail;
   res1 = SWIG_AsCharPtrAndSize(obj0, &buf1, NULL, &alloc1);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "greek_utf8_to_beta" "', argument " "1"" of type '" "char *""'");
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "betacode_greek_to_utf8" "', argument " "1"" of type '" "char *""'");
   }
   arg1 = reinterpret_cast< char * >(buf1);
-  result = (char *)greek_utf8_to_beta_w(arg1);
+  result = (char *)betacode_greek_to_utf8(arg1);
   resultobj = SWIG_FromCharPtr((const char *)result);
   if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
   return resultobj;
 fail:
   if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_betacode_greek_to_utf8(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    int res = SWIG_AsCharPtrAndSize(argv[0], 0, NULL, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_betacode_greek_to_utf8__SWIG_2(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    int res = SWIG_AsCharPtrAndSize(argv[0], 0, NULL, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_int(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_betacode_greek_to_utf8__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = SWIG_AsCharPtrAndSize(argv[0], 0, NULL, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_int(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_betacode_greek_to_utf8__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'betacode_greek_to_utf8'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    betacode_greek_to_utf8(char *,int,int)\n"
+    "    betacode_greek_to_utf8(char *,int)\n"
+    "    betacode_greek_to_utf8(char *)\n");
+  return 0;
 }
 
 
 static PyMethodDef SwigMethods[] = {
 	 { (char *)"SWIG_PyInstanceMethod_New", (PyCFunction)SWIG_PyInstanceMethod_New, METH_O, NULL},
-	 { (char *)"greek_beta_to_utf8", _wrap_greek_beta_to_utf8, METH_VARARGS, NULL},
-	 { (char *)"greek_utf8_to_beta", _wrap_greek_utf8_to_beta, METH_VARARGS, NULL},
+	 { (char *)"betacode_greek_to_utf8", _wrap_betacode_greek_to_utf8, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 

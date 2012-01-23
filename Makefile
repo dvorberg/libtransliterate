@@ -1,7 +1,7 @@
 include flags.mak
 
 # The sources for the library
-SRCS=betacode_greek.c++ cjhebrew.c++
+SRCS=betacode_greek.c++ cjhebrew.c++ conversion.c++
 OBJS=$(SRCS:%.c++=%.o) code_tables.o
 
 CODE_LISTS=coptic.tbl greek_asterisk.tbl greek_case.tbl\

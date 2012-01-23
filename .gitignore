@@ -6,3 +6,5 @@
 *.lo
 *.o
 depend
+*.la
+header.txt

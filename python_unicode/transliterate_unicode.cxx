@@ -1,4 +1,18 @@
-// -*- mode: c++; encoding: utf-8; -*-
+// -*- mode: objc; encoding: utf-8; -*_
+//
+// This file is part of libtransliterate
+//
+// Copyright 2012 by Diedrich Vorberg <diedrich@tux4web.de>
+//
+// All Rights Reserved.
+//
+// For more Information on orm see the README and LICENSE file.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+// CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+// INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED.
 
 #include <stdint.h>
 #include <Python.h>
