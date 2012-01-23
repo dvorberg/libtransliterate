@@ -1,0 +1,26 @@
+
+   libtransliterate
+
+
+This library converts “transliterated” representations of non-English
+languages, that use sequences as ANSI characters to represent
+characters, to unicode. Supported transliterations are:
+
+o The Thesaurus Linguae Graecae’s Beta Code for Polytonic Greek,
+  Hebrew and Coptic. 
+o cjhebrew transliteration from the LaTeX package by that name
+
+I don’t know much about Coptic, so the functions for that language
+remain largely untested. The Beta Code representation for Hebrew is
+missing vowel and diacritical marks entirely.
+
+The library comes with
+
+o a swig interface definition that may work with your favorite
+  scripting language
+o and a hand-coded Python interface with native Python Unicode
+  support (if your interpreter is built right, which is likely).
+
+It has a BSD style license. See the LICENSE file.
+  
+See http://www.tux4web.de/libtransliterate/ for more information.

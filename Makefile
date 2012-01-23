@@ -1,12 +1,15 @@
 include flags.mak
 
 # The sources for the library
-SRCS=betacode_greek.c++ cjhebrew.c++ conversion.c++
+SRCS=betacode_greek.c++ betacode_coptic.c++ betacode_hebrew.c++ \
+	cjhebrew.c++ conversion.c++
 OBJS=$(SRCS:%.c++=%.o) code_tables.o
 
-CODE_LISTS=coptic.tbl greek_asterisk.tbl greek_case.tbl\
-	latin.tbl specials.tbl\
+CODE_LISTS=greek_asterisk.tbl greek_case.tbl\
 	greek_precombined_case.tbl greek_precombined_asterisk.tbl\
+	hebrew.tbl\
+	coptic.tbl\
+	specials.tbl\
 	cjhebrew.tbl
 CODE_CXX=$(CODE_LISTS:%.tbl=%.inc)
 
@@ -29,6 +32,10 @@ install: transliterate.h libtransliterate.la
 		/usr/local/lib/libtransliterate.la
 
 	install -c transliterate.h /usr/local/include/transliterate.h
+
+ifeq ($(UNAME), Linux)
+	ldconfig
+endif
 
 depend: 
 	rm -f depend

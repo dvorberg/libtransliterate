@@ -1077,21 +1077,94 @@ extern "C" {
 
 #include <transliterate.h>
 
-char *greek_beta_to_utf8_w(char *beta)
+char *betacode_greek_to_utf8(char *beta,
+                             int precombined = 0,
+                             int asterisk_syntax = 0)
 {
-    size_t buflen = strlen(beta) * 3;
-    char *buffer = (char *)malloc(buflen);
-    greek_beta_to_utf8(beta, buffer, buflen);
-    return buffer;
+    // Take a good guess at how many characters the unicode string is
+    // going to contain.
+    size_t buflen16 = strlen(beta);
+    // Increase size by 1/4th to make sure there's enough room.
+    buflen16 += buflen16 >> 2;
+
+    // Allocate a buffer.
+    uint16_t *buffer16 = (uint16_t *)malloc(buflen16 * sizeof(uint16_t));
+
+    // Do the conversion.
+    /*size_t length = */
+    transliterate::betacode_greek_to_utf16(beta, buffer16, buflen16);
+    
+    // The output buffer size we calculated take * 1.5
+    size_t buflen8 = 2*buflen16;
+
+    // Allocate the buffer
+    char *buffer8 = (char *)malloc(buflen8);
+
+    // UTF-16 to -8 conversion
+    transliterate::utf16_to_utf8(buffer16, buffer8, buflen8);
+    free(buffer16);
+
+    return buffer8;
 }
 
-char *greek_utf8_to_beta_w(char *utf8)
+// All the other conversions go through this function.
+
+// The increase_size_exponent= paramter determins how the size of the
+// output buffer is calculated. The formular is
+//
+//                               1
+// bufsize = strlen(input) *  -------
+//                               exp
+//                              2
+//
+// So the default value 2 means the output buffer will hold 1.25 times
+// the string length of the input.
+
+char *convert(
+    size_t(function)(char *input, uint16_t *buffer, size_t buffer_length),
+    char *beta, int increase_size_exponent = 2)
 {
-    size_t buflen = strlen(utf8);
-    char *buffer = (char *)malloc(buflen);
-    greek_utf8_to_beta(utf8, buffer, buflen);
-    return buffer;
+    // Take a good guess at how many characters the unicode string is
+    // going to contain.
+    size_t buflen16 = strlen(beta);
+    // Increase size by 1/4th to make sure there's enough room.
+    buflen16 += buflen16 >> increase_size_exponent;
+
+    // Allocate a buffer.
+    uint16_t *buffer16 = (uint16_t *)malloc(buflen16 * sizeof(uint16_t));
+
+    // Do the conversion.
+    /*size_t length = */
+    function(beta, buffer16, buflen16);
+    
+    // The output buffer size we calculated take * 2
+    size_t buflen8 = buflen16 << 1;
+
+    // Allocate the buffer
+    char *buffer8 = (char *)malloc(buflen8);
+
+    // UTF-16 to -8 conversion
+    transliterate::utf16_to_utf8(buffer16, buffer8, buflen8);
+    free(buffer16);
+
+    return buffer8;
 }
+
+char *betacode_hebrew_to_utf8(char *beta)
+{
+    return convert(&transliterate::betacode_hebrew_to_utf16, beta);
+}
+
+char *betacode_coptic_to_utf8(char *beta)
+{
+    return convert(&transliterate::betacode_coptic_to_utf16, beta);
+}
+
+char *cjhebrew_to_utf8(char *beta)
+{
+    return convert(&transliterate::cjhebrew_to_utf16, beta);
+}
+
 
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
@@ -1113,13 +1186,15 @@ static swig_cast_info *swig_cast_initial[] = {
 /* vdecl subsection */
 /* end vdecl subsection */
 /* wrapper section */
-ZEND_NAMED_FUNCTION(_wrap_greek_beta_to_utf8) {
+ZEND_NAMED_FUNCTION(_wrap_betacode_greek_to_utf8__SWIG_0) {
   char *arg1 = (char *) 0 ;
-  zval **args[1];
+  int arg2 ;
+  int arg3 ;
+  zval **args[3];
   char *result = 0 ;
   
   SWIG_ResetError();
-  if(ZEND_NUM_ARGS() != 1 || zend_get_parameters_array_ex(1, args) != SUCCESS) {
+  if(ZEND_NUM_ARGS() != 3 || zend_get_parameters_array_ex(3, args) != SUCCESS) {
     WRONG_PARAM_COUNT;
   }
   
@@ -1133,7 +1208,19 @@ ZEND_NAMED_FUNCTION(_wrap_greek_beta_to_utf8) {
   }
   /*@SWIG@*/;
   
-  result = (char *)greek_beta_to_utf8_w(arg1);
+  
+  /*@SWIG:/usr/local/share/swig/2.0.4/php/utils.i,7,CONVERT_INT_IN@*/
+  convert_to_long_ex(args[1]);
+  arg2 = (int) Z_LVAL_PP(args[1]);
+  /*@SWIG@*/;
+  
+  
+  /*@SWIG:/usr/local/share/swig/2.0.4/php/utils.i,7,CONVERT_INT_IN@*/
+  convert_to_long_ex(args[2]);
+  arg3 = (int) Z_LVAL_PP(args[2]);
+  /*@SWIG@*/;
+  
+  result = (char *)betacode_greek_to_utf8(arg1,arg2,arg3);
   {
     if(!result) {
       ZVAL_NULL(return_value);
@@ -1147,7 +1234,48 @@ fail:
 }
 
 
-ZEND_NAMED_FUNCTION(_wrap_greek_utf8_to_beta) {
+ZEND_NAMED_FUNCTION(_wrap_betacode_greek_to_utf8__SWIG_1) {
+  char *arg1 = (char *) 0 ;
+  int arg2 ;
+  zval **args[2];
+  char *result = 0 ;
+  
+  SWIG_ResetError();
+  if(ZEND_NUM_ARGS() != 2 || zend_get_parameters_array_ex(2, args) != SUCCESS) {
+    WRONG_PARAM_COUNT;
+  }
+  
+  
+  /*@SWIG:/usr/local/share/swig/2.0.4/php/utils.i,62,CONVERT_STRING_IN@*/
+  if ((*args[0])->type==IS_NULL) {
+    arg1 = (char *) 0;
+  } else {
+    convert_to_string_ex(args[0]);
+    arg1 = (char *) Z_STRVAL_PP(args[0]);
+  }
+  /*@SWIG@*/;
+  
+  
+  /*@SWIG:/usr/local/share/swig/2.0.4/php/utils.i,7,CONVERT_INT_IN@*/
+  convert_to_long_ex(args[1]);
+  arg2 = (int) Z_LVAL_PP(args[1]);
+  /*@SWIG@*/;
+  
+  result = (char *)betacode_greek_to_utf8(arg1,arg2);
+  {
+    if(!result) {
+      ZVAL_NULL(return_value);
+    } else {
+      ZVAL_STRING(return_value, (char *)result, 1);
+    }
+  }
+  return;
+fail:
+  zend_error(SWIG_ErrorCode(),"%s",SWIG_ErrorMsg());
+}
+
+
+ZEND_NAMED_FUNCTION(_wrap_betacode_greek_to_utf8__SWIG_2) {
   char *arg1 = (char *) 0 ;
   zval **args[1];
   char *result = 0 ;
@@ -1167,7 +1295,152 @@ ZEND_NAMED_FUNCTION(_wrap_greek_utf8_to_beta) {
   }
   /*@SWIG@*/;
   
-  result = (char *)greek_utf8_to_beta_w(arg1);
+  result = (char *)betacode_greek_to_utf8(arg1);
+  {
+    if(!result) {
+      ZVAL_NULL(return_value);
+    } else {
+      ZVAL_STRING(return_value, (char *)result, 1);
+    }
+  }
+  return;
+fail:
+  zend_error(SWIG_ErrorCode(),"%s",SWIG_ErrorMsg());
+}
+
+
+ZEND_NAMED_FUNCTION(_wrap_betacode_greek_to_utf8) {
+  int argc;
+  zval **argv[3];
+  
+  argc = ZEND_NUM_ARGS();
+  zend_get_parameters_array_ex(argc,argv);
+  if (argc == 1) {
+    int _v;
+    _v = (Z_TYPE_PP(argv[0]) == IS_STRING); 
+    if (_v) {
+      _wrap_betacode_greek_to_utf8__SWIG_2(INTERNAL_FUNCTION_PARAM_PASSTHRU); return;
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (Z_TYPE_PP(argv[0]) == IS_STRING); 
+    if (_v) {
+      _v = (Z_TYPE_PP(argv[1]) == IS_LONG); 
+      if (_v) {
+        _wrap_betacode_greek_to_utf8__SWIG_1(INTERNAL_FUNCTION_PARAM_PASSTHRU); return;
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    _v = (Z_TYPE_PP(argv[0]) == IS_STRING); 
+    if (_v) {
+      _v = (Z_TYPE_PP(argv[1]) == IS_LONG); 
+      if (_v) {
+        _v = (Z_TYPE_PP(argv[2]) == IS_LONG); 
+        if (_v) {
+          _wrap_betacode_greek_to_utf8__SWIG_0(INTERNAL_FUNCTION_PARAM_PASSTHRU); return;
+        }
+      }
+    }
+  }
+  
+  SWIG_ErrorCode() = E_ERROR;
+  SWIG_ErrorMsg() = "No matching function for overloaded 'betacode_greek_to_utf8'";
+  zend_error(SWIG_ErrorCode(),"%s",SWIG_ErrorMsg());
+}
+
+
+ZEND_NAMED_FUNCTION(_wrap_betacode_hebrew_to_utf8) {
+  char *arg1 = (char *) 0 ;
+  zval **args[1];
+  char *result = 0 ;
+  
+  SWIG_ResetError();
+  if(ZEND_NUM_ARGS() != 1 || zend_get_parameters_array_ex(1, args) != SUCCESS) {
+    WRONG_PARAM_COUNT;
+  }
+  
+  
+  /*@SWIG:/usr/local/share/swig/2.0.4/php/utils.i,62,CONVERT_STRING_IN@*/
+  if ((*args[0])->type==IS_NULL) {
+    arg1 = (char *) 0;
+  } else {
+    convert_to_string_ex(args[0]);
+    arg1 = (char *) Z_STRVAL_PP(args[0]);
+  }
+  /*@SWIG@*/;
+  
+  result = (char *)betacode_hebrew_to_utf8(arg1);
+  {
+    if(!result) {
+      ZVAL_NULL(return_value);
+    } else {
+      ZVAL_STRING(return_value, (char *)result, 1);
+    }
+  }
+  return;
+fail:
+  zend_error(SWIG_ErrorCode(),"%s",SWIG_ErrorMsg());
+}
+
+
+ZEND_NAMED_FUNCTION(_wrap_betacode_coptic_to_utf8) {
+  char *arg1 = (char *) 0 ;
+  zval **args[1];
+  char *result = 0 ;
+  
+  SWIG_ResetError();
+  if(ZEND_NUM_ARGS() != 1 || zend_get_parameters_array_ex(1, args) != SUCCESS) {
+    WRONG_PARAM_COUNT;
+  }
+  
+  
+  /*@SWIG:/usr/local/share/swig/2.0.4/php/utils.i,62,CONVERT_STRING_IN@*/
+  if ((*args[0])->type==IS_NULL) {
+    arg1 = (char *) 0;
+  } else {
+    convert_to_string_ex(args[0]);
+    arg1 = (char *) Z_STRVAL_PP(args[0]);
+  }
+  /*@SWIG@*/;
+  
+  result = (char *)betacode_coptic_to_utf8(arg1);
+  {
+    if(!result) {
+      ZVAL_NULL(return_value);
+    } else {
+      ZVAL_STRING(return_value, (char *)result, 1);
+    }
+  }
+  return;
+fail:
+  zend_error(SWIG_ErrorCode(),"%s",SWIG_ErrorMsg());
+}
+
+
+ZEND_NAMED_FUNCTION(_wrap_cjhebrew_to_utf8) {
+  char *arg1 = (char *) 0 ;
+  zval **args[1];
+  char *result = 0 ;
+  
+  SWIG_ResetError();
+  if(ZEND_NUM_ARGS() != 1 || zend_get_parameters_array_ex(1, args) != SUCCESS) {
+    WRONG_PARAM_COUNT;
+  }
+  
+  
+  /*@SWIG:/usr/local/share/swig/2.0.4/php/utils.i,62,CONVERT_STRING_IN@*/
+  if ((*args[0])->type==IS_NULL) {
+    arg1 = (char *) 0;
+  } else {
+    convert_to_string_ex(args[0]);
+    arg1 = (char *) Z_STRVAL_PP(args[0]);
+  }
+  /*@SWIG@*/;
+  
+  result = (char *)cjhebrew_to_utf8(arg1);
   {
     if(!result) {
       ZVAL_NULL(return_value);
@@ -1188,8 +1461,10 @@ fail:
 /* entry subsection */
 /* Every non-class user visible function must have an entry here */
 static zend_function_entry transliterate_functions[] = {
- SWIG_ZEND_NAMED_FE(greek_beta_to_utf8,_wrap_greek_beta_to_utf8,NULL)
- SWIG_ZEND_NAMED_FE(greek_utf8_to_beta,_wrap_greek_utf8_to_beta,NULL)
+ SWIG_ZEND_NAMED_FE(betacode_greek_to_utf8,_wrap_betacode_greek_to_utf8,NULL)
+ SWIG_ZEND_NAMED_FE(betacode_hebrew_to_utf8,_wrap_betacode_hebrew_to_utf8,NULL)
+ SWIG_ZEND_NAMED_FE(betacode_coptic_to_utf8,_wrap_betacode_coptic_to_utf8,NULL)
+ SWIG_ZEND_NAMED_FE(cjhebrew_to_utf8,_wrap_cjhebrew_to_utf8,NULL)
  SWIG_ZEND_NAMED_FE(swig_transliterate_alter_newobject,_wrap_swig_transliterate_alter_newobject,NULL)
  SWIG_ZEND_NAMED_FE(swig_transliterate_get_newobject,_wrap_swig_transliterate_get_newobject,NULL)
 {NULL, NULL, NULL}

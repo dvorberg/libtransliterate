@@ -30,6 +30,8 @@ PHP_RINIT_FUNCTION(transliterate);
 PHP_RSHUTDOWN_FUNCTION(transliterate);
 PHP_MINFO_FUNCTION(transliterate);
 
-ZEND_NAMED_FUNCTION(_wrap_greek_beta_to_utf8);
-ZEND_NAMED_FUNCTION(_wrap_greek_utf8_to_beta);
+ZEND_NAMED_FUNCTION(_wrap_betacode_greek_to_utf8);
+ZEND_NAMED_FUNCTION(_wrap_betacode_hebrew_to_utf8);
+ZEND_NAMED_FUNCTION(_wrap_betacode_coptic_to_utf8);
+ZEND_NAMED_FUNCTION(_wrap_cjhebrew_to_utf8);
 #endif /* PHP_TRANSLITERATE_H */

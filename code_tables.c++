@@ -36,9 +36,9 @@ void add_greek_precombined_case_code_table(code_container *container)
 #include "greek_precombined_case.inc"
 }
 
-void add_latin_code_table(code_container *container)
+void add_hebrew_code_table(code_container *container)
 {
-#include "latin.inc"
+#include "hebrew.inc"
 }
 
 void add_coptic_code_table(code_container *container)

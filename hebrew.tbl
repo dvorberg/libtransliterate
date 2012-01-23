@@ -15,63 +15,43 @@
 // DISCLAIMED.
 
 // These codes follow the TLG Beta Code Quick Reference Guide
-// July 16, 2009
+// July 16, 2009. 
 //
 // o Syntax: Everything after // is ignored.
 // o Empty lines are ignored
 // o Everything else must be <code> <code point>
 //
 // Code points are hexadecimals.
+//
+// Trailing underscores (_) will be interpreted as "end of word or end of
+// input" to allow "final" versions of letters. If you want a literal
+// trailing underscore, use two (__). This is only for *trailing*
+// underscores.
 
-A 0041
-a 0061
-B 0042
-b 0062
-C 0043
-c 0063
-D 0044
-d 0064
-E 0045
-e 0065
-F 0046
-f 0066
-G 0047
-g 0067
-H 0048
-h 0068
-I 0049
-i 0069
-J 004A
-j 006A
-K 004B
-k 006B
-L 004C
-l 006C
-M 004D
-m 006D
-N 004E
-n 006E
-O 004F
-o 006F
-P 0050
-p 0070
-Q 0051
-q 0071
-R 0052
-r 0072
-S 0053
-s 0073
-T 0054
-t 0074
-U 0055
-u 0075
-V 0056
-v 0076
-W 0057
-w 0077
-X 0058
-x 0078
-Y 0059
-y 0079
-Z 005A
-z 007A
+A 05D0 // א
+a 05E2 // ע
+b 05D1 // ב
+d 05D3 // ד
+g 05D2 // ג
+h 05D4 // ה
+H 05D7 // ח
+k1 05DB // כ
+k2 05DA // ך
+l 05DC // ל
+m1 05DE // מ
+m2 05DD // ם
+n1 05E0 // נ
+n2 05DF // ן
+p1 05E4 // פ
+p2 05E3 // ף
+Q 05D8 // ט
+q 05E7 // ק
+r 05E8 // ר
+S 05E1 // ס
+s 05E9 // ש
+t 05EA // ת
+T1 05E6 // צ
+T2 05E5 // ץ
+v 05D5 // ו 
+y 05D9 // י 
+z 05D6 // Zayin

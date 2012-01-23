@@ -27,12 +27,20 @@ if (!extension_loaded('transliterate')) {
 
 
 abstract class transliterate {
-	static function greek_beta_to_utf8($beta) {
-		return greek_beta_to_utf8($beta);
+	static function betacode_greek_to_utf8($beta,$precombined=0,$asterisk_syntax=0) {
+		return betacode_greek_to_utf8($beta,$precombined,$asterisk_syntax);
 	}
 
-	static function greek_utf8_to_beta($utf8) {
-		return greek_utf8_to_beta($utf8);
+	static function betacode_hebrew_to_utf8($beta) {
+		return betacode_hebrew_to_utf8($beta);
+	}
+
+	static function betacode_coptic_to_utf8($betacode) {
+		return betacode_coptic_to_utf8($betacode);
+	}
+
+	static function cjhebrew_to_utf8($betacode) {
+		return cjhebrew_to_utf8($betacode);
 	}
 }
 

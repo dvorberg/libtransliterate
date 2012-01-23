@@ -3050,21 +3050,13 @@ char *betacode_greek_to_utf8(char *beta,
     // Increase size by 1/4th to make sure there's enough room.
     buflen16 += buflen16 >> 2;
 
-    printf("buflen16=%i  strlen(beta)=%i\n", buflen16, strlen(beta));
-    
     // Allocate a buffer.
     uint16_t *buffer16 = (uint16_t *)malloc(buflen16 * sizeof(uint16_t));
 
     // Do the conversion.
-    size_t length = transliterate::betacode_greek_to_utf16(
-        beta, buffer16, buflen16);
+    /*size_t length = */
+    transliterate::betacode_greek_to_utf16(beta, buffer16, buflen16);
     
-    for (int a = 0; a < length; a++)
-    {
-        printf("%x ", buffer16[a]);
-    }
-    printf("\n");
-
     // The output buffer size we calculated take * 1.5
     size_t buflen8 = 2*buflen16;
 
@@ -3075,9 +3067,65 @@ char *betacode_greek_to_utf8(char *beta,
     transliterate::utf16_to_utf8(buffer16, buffer8, buflen8);
     free(buffer16);
 
-    printf("%s\n", buffer8);
-    
     return buffer8;
+}
+
+// All the other conversions go through this function.
+
+// The increase_size_exponent= paramter determins how the size of the
+// output buffer is calculated. The formular is
+//
+//                               1
+// bufsize = strlen(input) *  -------
+//                               exp
+//                              2
+//
+// So the default value 2 means the output buffer will hold 1.25 times
+// the string length of the input.
+
+char *convert(
+    size_t(function)(char *input, uint16_t *buffer, size_t buffer_length),
+    char *beta, int increase_size_exponent = 2)
+{
+    // Take a good guess at how many characters the unicode string is
+    // going to contain.
+    size_t buflen16 = strlen(beta);
+    // Increase size by 1/4th to make sure there's enough room.
+    buflen16 += buflen16 >> increase_size_exponent;
+
+    // Allocate a buffer.
+    uint16_t *buffer16 = (uint16_t *)malloc(buflen16 * sizeof(uint16_t));
+
+    // Do the conversion.
+    /*size_t length = */
+    function(beta, buffer16, buflen16);
+    
+    // The output buffer size we calculated take * 2
+    size_t buflen8 = buflen16 << 1;
+
+    // Allocate the buffer
+    char *buffer8 = (char *)malloc(buflen8);
+
+    // UTF-16 to -8 conversion
+    transliterate::utf16_to_utf8(buffer16, buffer8, buflen8);
+    free(buffer16);
+
+    return buffer8;
+}
+
+char *betacode_hebrew_to_utf8(char *beta)
+{
+    return convert(&transliterate::betacode_hebrew_to_utf16, beta);
+}
+
+char *betacode_coptic_to_utf8(char *beta)
+{
+    return convert(&transliterate::betacode_coptic_to_utf16, beta);
+}
+
+char *cjhebrew_to_utf8(char *beta)
+{
+    return convert(&transliterate::cjhebrew_to_utf16, beta);
 }
 
 
@@ -3514,9 +3562,87 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_betacode_hebrew_to_utf8(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  char *arg1 = (char *) 0 ;
+  int res1 ;
+  char *buf1 = 0 ;
+  int alloc1 = 0 ;
+  PyObject * obj0 = 0 ;
+  char *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:betacode_hebrew_to_utf8",&obj0)) SWIG_fail;
+  res1 = SWIG_AsCharPtrAndSize(obj0, &buf1, NULL, &alloc1);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "betacode_hebrew_to_utf8" "', argument " "1"" of type '" "char *""'");
+  }
+  arg1 = reinterpret_cast< char * >(buf1);
+  result = (char *)betacode_hebrew_to_utf8(arg1);
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return resultobj;
+fail:
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_betacode_coptic_to_utf8(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  char *arg1 = (char *) 0 ;
+  int res1 ;
+  char *buf1 = 0 ;
+  int alloc1 = 0 ;
+  PyObject * obj0 = 0 ;
+  char *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:betacode_coptic_to_utf8",&obj0)) SWIG_fail;
+  res1 = SWIG_AsCharPtrAndSize(obj0, &buf1, NULL, &alloc1);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "betacode_coptic_to_utf8" "', argument " "1"" of type '" "char *""'");
+  }
+  arg1 = reinterpret_cast< char * >(buf1);
+  result = (char *)betacode_coptic_to_utf8(arg1);
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return resultobj;
+fail:
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_cjhebrew_to_utf8(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  char *arg1 = (char *) 0 ;
+  int res1 ;
+  char *buf1 = 0 ;
+  int alloc1 = 0 ;
+  PyObject * obj0 = 0 ;
+  char *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:cjhebrew_to_utf8",&obj0)) SWIG_fail;
+  res1 = SWIG_AsCharPtrAndSize(obj0, &buf1, NULL, &alloc1);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "cjhebrew_to_utf8" "', argument " "1"" of type '" "char *""'");
+  }
+  arg1 = reinterpret_cast< char * >(buf1);
+  result = (char *)cjhebrew_to_utf8(arg1);
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return resultobj;
+fail:
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return NULL;
+}
+
+
 static PyMethodDef SwigMethods[] = {
 	 { (char *)"SWIG_PyInstanceMethod_New", (PyCFunction)SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { (char *)"betacode_greek_to_utf8", _wrap_betacode_greek_to_utf8, METH_VARARGS, NULL},
+	 { (char *)"betacode_hebrew_to_utf8", _wrap_betacode_hebrew_to_utf8, METH_VARARGS, NULL},
+	 { (char *)"betacode_coptic_to_utf8", _wrap_betacode_coptic_to_utf8, METH_VARARGS, NULL},
+	 { (char *)"cjhebrew_to_utf8", _wrap_cjhebrew_to_utf8, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 

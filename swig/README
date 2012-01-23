@@ -1,0 +1,34 @@
+SWIG is a generator for glue code between C/C++ and a host of
+scripting languages, among them Python, Perl and PHP. See
+http://www.swig.org/ for details.
+
+For our purposes there is one big limitation. In the word of the Swig
+documentation:
+
+   At this time, SWIG provides limited support for Unicode and
+   wide-character strings (the C wchar_t type). Some languages provide
+   typemaps for wchar_t, but bear in mind these might not be portable
+   across different operating systems. This is a delicate topic that
+   is poorly understood by many programmers and not implemented in a
+   consistent manner across languages. For those scripting languages
+   that provide Unicode support, Unicode strings are often available
+   in an 8-bit representation such as UTF-8 that can be mapped to the
+   char * type (in which case the SWIG interface will probably
+   work). If the program you are wrapping uses Unicode, there is no
+   guarantee that Unicode characters in the target language will use
+   the same internal representation (e.g., UCS-2 vs. UCS-4). You may
+   need to write some special conversion functions.
+
+As a consequence the interface here accepts plain strings as input and
+returns plain strings as output, that are UTF-8 encoded. (See
+conversion.c++ for the utf16_to_utf8() function). For a lot of
+purposes this will just do. To avoid the extra conversion I wrote an
+extra Python module called transliterate_unicode you can find in the
+python_unicode/ subdirectory.
+
+These modules here expect libtransliterate to be built and installed.
+
+This has been tested with Swig 2.0.4.
+
+If you built an interface for a language not covered here, please
+contribute your code and/or instructions to diedrich@tux4web.de.

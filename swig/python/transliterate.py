@@ -67,6 +67,18 @@ except AttributeError:
     _newclass = 0
 
 
+
+def betacode_hebrew_to_utf8(*args):
+  return _transliterate.betacode_hebrew_to_utf8(*args)
+betacode_hebrew_to_utf8 = _transliterate.betacode_hebrew_to_utf8
+
+def betacode_coptic_to_utf8(*args):
+  return _transliterate.betacode_coptic_to_utf8(*args)
+betacode_coptic_to_utf8 = _transliterate.betacode_coptic_to_utf8
+
+def cjhebrew_to_utf8(*args):
+  return _transliterate.cjhebrew_to_utf8(*args)
+cjhebrew_to_utf8 = _transliterate.cjhebrew_to_utf8
 # This file is compatible with both classic and new-style classes.
 
 

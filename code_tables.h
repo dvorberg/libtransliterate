@@ -32,7 +32,7 @@ void add_greek_asterisk_code_table(code_container *container);
 void add_greek_case_code_table(code_container *container);
 void add_greek_precombined_asterisk_code_table(code_container *container);
 void add_greek_precombined_case_code_table(code_container *container);
-void add_latin_code_table(code_container *container);
+void add_hebrew_code_table(code_container *container);
 void add_coptic_code_table(code_container *container);
 void add_specials_code_table(code_container *container);
 

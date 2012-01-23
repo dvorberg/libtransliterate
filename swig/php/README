@@ -1,0 +1,4 @@
+I got this to work on Debian 5 Linux. I had install swig 2.0.4 by hand
+and I also needed (besides the C++ compiler and stuff, obviously) the
+php5-dev package.
+
