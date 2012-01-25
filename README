@@ -3,8 +3,8 @@
 
 
 This library converts “transliterated” representations of non-English
-languages, that use sequences as ANSI characters to represent
-characters, to unicode. Supported transliterations are:
+languages, like TLG's Beta Code, to unicode. Supported
+transliterations are:
 
 o The Thesaurus Linguae Graecae’s Beta Code for Polytonic Greek,
   Hebrew and Coptic. 
@@ -26,7 +26,7 @@ For documentation see transliteration.h. Just running
    make
    su make install
    
-should give you a working copy on MacOSX and Linux. It you're using
+should give you a working library on MacOSX and Linux. It you're using
 another system and get it to work I'd appreciate a patch. If you can't
 get it to work or don't know how to, contact me and we'll try to
 figure something out.
