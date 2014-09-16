@@ -293,7 +293,7 @@ public:
         } // while
         
         *ret_p = 0;
-        return length + 1; // +1 because of the 0!
+        return length; // +1 because of the 0!
     }
     
     void finalize() {
