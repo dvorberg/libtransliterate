@@ -1,4 +1,2 @@
 This is a hand-coded Python interface to libtransliterate that returns
-native Unicode strings for you transliterations if your Python
-interpreter is compiled to represent Unicode as UTF-16. It would be
-possible to program that, though.
+native Unicode strings for transliterations.

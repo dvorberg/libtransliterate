@@ -38,7 +38,7 @@ transliterate_unicode = Extension( "transliterate_unicode",
                                    sources=["transliterate_unicode.cxx",],
                                    include_dirs = include_dirs,
                                    library_dirs = library_dirs,
-                                   libraries = ["transliterate"])
+                                   libraries = ["transliterate", "unistring"])
 
 setup (name = "transliterate_unicode",
        version = "0.0",
