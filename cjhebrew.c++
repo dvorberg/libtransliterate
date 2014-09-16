@@ -27,9 +27,9 @@ class cjhebrew_to_utf16_trie_t:
 {
 public:
     /* Return true if c is a whitespace character. */
-    /*virtual int between_words(char c) {
-        return c == ' ' || c == '\t' || c == '\n' || c == 0 || c == '-';
-        }*/
+    virtual int between_words(char c) {
+        return c == ' ' || c == '\t' || c == '\n' || c == 0;
+    }
     
     void add_pair(char *beta, uint16_t *codepoint) {
         add((char *)beta, codepoint);
