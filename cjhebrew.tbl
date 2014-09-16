@@ -44,6 +44,7 @@ k\zeronojoin_ 05DB // כ  Kaph
 k_ 05DA //    Final-Kaph
 K  05DA //    Final-Kaph
 k! 05DA //    Final-Kaph
+k-- 05DA 05BE // Final-Kaph Maqaf
 
 l  05DC // ל  Lamech
 
@@ -56,6 +57,7 @@ m_ 05DD //    Final-Mem
 M  05DD //    Final-Mem
 m! 05DD //    Final-Mem
 m\endofword 05DD //    Final-Mem
+m-- 05DD 05BE // Final-Mem Maqaf
 
 n  05E0 // נ  Nun
 N|_ 05E0 // נ  Nun
@@ -65,7 +67,8 @@ n\zeronojoin_ 05E0 // נ  Nun
 n_ 05E0 // נ  Nun
 N  05DF //    Final-nun
 n! 05DF //    Final-nun
-n\endofword 05DF //    Final-nun
+n\endofword 05DF //    Final-Nun
+n-- 05DF 05BE // Final-Nun Maqaf
 
 s  05E1 // ס  Samech
 `  05E2 // ע  Ajin
@@ -79,6 +82,7 @@ p_ 05E3 //    Final-Pe
 P  05E3 //    Final-Pe
 p! 05E3 //    Final-Pe
 p\endofword  05E3 //    Final-Pe
+p-- 05E3 05BE // Final-Pe Maqaf
 
 .s 05E6 // צ  Tzade
 .S|_ 05E6 // צ  Tzade
@@ -89,6 +93,7 @@ p\endofword  05E3 //    Final-Pe
 .S 05E5 //    Final-Tzade
 .s! 05E5 //    Final-Tzade
 .s\endofword 05E5 //    Final-Tzade
+.s-- 05E5 05BE // Final-Tzade Maqaf
 
 q  05E7 // ק  Qoph
 r  05E8 // ר  Resch
