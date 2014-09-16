@@ -32,9 +32,10 @@ inline PyObject *construct_return_value(uint16_t *buffer, size_t length)
 #elif Py_UNICODE_SIZE == 4
     uint32_t *converted = (uint32_t *)malloc(length * sizeof(uint32_t));
     size_t result_length;
+
     u16_to_u32(buffer, length, converted, &result_length);
     
-    ret = Py_BuildValue("u#", converted, (int)result_length);
+    ret = Py_BuildValue("u#", converted, (int)length);
     free(converted);
 #else
 #error "This only works of Py_UNICODE is uint16_t or uint32_t, sorry."
@@ -53,8 +54,7 @@ PyObject *betacode_greek_to_unicode(PyObject *self, PyObject *args)
         return NULL;
     }
 
-    size_t buflen = strlen(input);
-    buflen += buflen >> 3; // 1 1/8th
+    size_t buflen = strlen(input) * 2;
     uint16_t *buffer = (uint16_t *)malloc(
         buflen*sizeof(uint16_t));
     size_t length = transliterate::betacode_greek_to_utf16(
