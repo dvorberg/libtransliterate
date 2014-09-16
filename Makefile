@@ -25,7 +25,7 @@ all: code_tables.o libtransliterate.la
 
 libtransliterate.la: $(OBJS)
 	libtool --mode=link \
-		gcc $(CFLAGS) -o libtransliterate.la -release $(RELEASE) \
+		g++ $(CFLAGS) -o libtransliterate.la -release $(RELEASE) \
 			-rpath /usr/local/lib $(OBJS:%.o=%.lo)
 
 code_tables.o: code_tables.c++ tbl2cpp.py $(CODE_CXX)
