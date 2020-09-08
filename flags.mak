@@ -6,6 +6,9 @@ CFLAGS=-g -pipe
 LDFLAGS=-pipe
 
 ifeq ($(UNAME), Darwin)
-CFLAGS+=-arch i386 -arch x86_64
-LDFLAGS+=-arch=i386 -arch x86_64
+CFLAGS+=-arch x86_64
+LDFLAGS+=-arch x86_64
+LIBTOOL=glibtool
+else
+LIBTOOL=libtool
 endif
