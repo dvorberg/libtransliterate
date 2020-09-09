@@ -8,3 +8,4 @@
 depend
 *.la
 header.txt
+ltmain.sh
