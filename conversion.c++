@@ -21,6 +21,8 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#pragma GCC diagnostic ignored "-Wbitwise-op-parentheses"
+
 #include <arpa/inet.h>
 #include <stdint.h>
 #include <sys/types.h>

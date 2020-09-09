@@ -173,7 +173,7 @@ public:
         node *here = root, *child = NULL;
 
         // If we run into a dead end on the tree, we return the value
-        // from the first node we met that carries one and reset the
+        // from the first node we met that carrys one and reset the
         // buffer pointer to the char that brought us there.
         value_char_type *first_value = NULL;
         key_char_type *first_value_p = NULL;
@@ -277,7 +277,7 @@ public:
                 for (value_char_type *q = append; *q != 0; q++)
                 {
                     *ret_p = *q;                    
-                    *ret_p++;
+                    ret_p++;
                     length++;
                 }
             }
